@@ -2,7 +2,7 @@
     <div class="sidebar-brand">
         <a href="{{ route('admin.dashboard') }}" class="brand-link">
             @if (! empty($adminBrandLogo))
-                <img src="{{ media_url($adminBrandLogo) }}" alt="{{ $adminSiteName }}" class="h-8 w-auto max-w-[7.5rem] object-contain">
+                <img src="{{ media_url($adminBrandLogo) }}" alt="{{ $adminSiteName }}">
             @else
                 <span class="brand-mark">{{ strtoupper(substr($adminSiteName ?? 'V', 0, 1)) }}</span>
                 <span class="brand-copy">

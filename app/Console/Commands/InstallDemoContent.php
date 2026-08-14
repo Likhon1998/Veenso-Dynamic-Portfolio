@@ -143,6 +143,10 @@ SVG;
             return null;
         }
 
+        if (! $this->option('fresh') && Storage::disk('public')->exists($dest)) {
+            return $dest;
+        }
+
         Storage::disk('public')->put($dest, file_get_contents($source));
 
         return $dest;
@@ -157,6 +161,10 @@ SVG;
             $this->warn('Regions badge demo asset missing at storage/app/demo-assets/regions-badge.png');
 
             return null;
+        }
+
+        if (! $this->option('fresh') && Storage::disk('public')->exists($dest)) {
+            return $dest;
         }
 
         Storage::disk('public')->put($dest, file_get_contents($source));
@@ -174,6 +182,10 @@ SVG;
         foreach ($candidates as $source => $dest) {
             if (! is_file($source)) {
                 continue;
+            }
+
+            if (! $this->option('fresh') && Storage::disk('public')->exists($dest)) {
+                return $dest;
             }
 
             Storage::disk('public')->put($dest, file_get_contents($source));
@@ -283,6 +295,10 @@ SVG;
         ];
 
         foreach ($settings as $setting) {
+            if (! $this->option('fresh') && SiteSetting::query()->where('key', $setting['key'])->exists()) {
+                continue;
+            }
+
             SiteSetting::set($setting['key'], $setting['value'], $setting['group']);
         }
     }

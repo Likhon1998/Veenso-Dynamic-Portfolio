@@ -1,0 +1,382 @@
+[
+    {
+        "key": "site_name",
+        "value": "veenso",
+        "group": "general"
+    },
+    {
+        "key": "tagline",
+        "value": "Strategy-first digital growth for brands that measure what matters.",
+        "group": "general"
+    },
+    {
+        "key": "footer_text",
+        "value": "Veenso partners with growth-minded brands to build measurable digital systems — not vanity metrics.",
+        "group": "general"
+    },
+    {
+        "key": "phone",
+        "value": "+1 (555) 482-9100",
+        "group": "contact"
+    },
+    {
+        "key": "email",
+        "value": "hello@veenso.com",
+        "group": "contact"
+    },
+    {
+        "key": "address",
+        "value": "1200 Market Street, Suite 400, San Francisco, CA 94103",
+        "group": "contact"
+    },
+    {
+        "key": "socials",
+        "value": "{\"linkedin\":\"https:\\/\\/linkedin.com\\/company\\/veenso\",\"twitter\":\"https:\\/\\/twitter.com\\/veenso\",\"instagram\":\"https:\\/\\/instagram.com\\/veenso\"}",
+        "group": "social"
+    },
+    {
+        "key": "social_linkedin",
+        "value": "https://linkedin.com/company/veenso",
+        "group": "social"
+    },
+    {
+        "key": "social_twitter",
+        "value": "https://twitter.com/veenso",
+        "group": "social"
+    },
+    {
+        "key": "social_instagram",
+        "value": "https://instagram.com/veenso",
+        "group": "social"
+    },
+    {
+        "key": "brand_logo",
+        "value": "uploads/brand/veenso-logo.png",
+        "group": "brand"
+    },
+    {
+        "key": "hero_image",
+        "value": "uploads/hero/portrait.png",
+        "group": "hero"
+    },
+    {
+        "key": "hero_banner",
+        "value": "",
+        "group": "hero"
+    },
+    {
+        "key": "hero_regions_badge",
+        "value": "uploads/hero/regions-badge.png",
+        "group": "hero"
+    },
+    {
+        "key": "meta_title",
+        "value": "Veenso — Strategy-First Digital Growth Agency",
+        "group": "seo"
+    },
+    {
+        "key": "meta_description",
+        "value": "Veenso designs, builds, and optimizes the digital channels that drive revenue — SEO, marketing, web, and brand, with transparent reporting and accountable outcomes.",
+        "group": "seo"
+    },
+    {
+        "key": "header_cta_text",
+        "value": "Book a Free Strategy Call",
+        "group": "header"
+    },
+    {
+        "key": "hero_eyebrow",
+        "value": "Growth Partner • Not Just an Agency",
+        "group": "hero"
+    },
+    {
+        "key": "hero_headline",
+        "value": "Helping Service & E-commerce Businesses Grow Through ",
+        "group": "hero"
+    },
+    {
+        "key": "hero_headline_accent",
+        "value": "SEO, Paid Ads & AI Search.",
+        "group": "hero"
+    },
+    {
+        "key": "hero_subheadline",
+        "value": "We combine SEO, AI Search Optimization, Paid Advertising, Content Strategy and Conversion-Focused Websites to help businesses grow predictably.",
+        "group": "hero"
+    },
+    {
+        "key": "hero_cta_primary",
+        "value": "Book a Free Strategy Call",
+        "group": "hero"
+    },
+    {
+        "key": "hero_cta_url",
+        "value": "/contact",
+        "group": "hero"
+    },
+    {
+        "key": "hero_cta_secondary_label",
+        "value": "View Our Work",
+        "group": "hero"
+    },
+    {
+        "key": "hero_cta_secondary_url",
+        "value": "/portfolio",
+        "group": "hero"
+    },
+    {
+        "key": "hero_regions_text",
+        "value": "Serving Businesses Across in USA, UK, CANADA, AUSTRALIA & EUROPE.",
+        "group": "hero"
+    },
+    {
+        "key": "trust_label",
+        "value": "Trusted by growth teams",
+        "group": "home"
+    },
+    {
+        "key": "stat_revenue_growth",
+        "value": "120%+",
+        "group": "stats"
+    },
+    {
+        "key": "stat_revenue_growth_label",
+        "value": "Average revenue growth for retained clients",
+        "group": "stats"
+    },
+    {
+        "key": "stat_roi",
+        "value": "4.5X",
+        "group": "stats"
+    },
+    {
+        "key": "stat_roi_label",
+        "value": "Average marketing ROI within 12 months",
+        "group": "stats"
+    },
+    {
+        "key": "stat_revenue_generated",
+        "value": "$8M+",
+        "group": "stats"
+    },
+    {
+        "key": "stat_revenue_generated_label",
+        "value": "Client revenue attributed to our campaigns",
+        "group": "stats"
+    },
+    {
+        "key": "stat_projects",
+        "value": "50+",
+        "group": "stats"
+    },
+    {
+        "key": "stat_projects_label",
+        "value": "Projects delivered across industries",
+        "group": "stats"
+    },
+    {
+        "key": "stat_retention",
+        "value": "95%",
+        "group": "stats"
+    },
+    {
+        "key": "stat_retention_label",
+        "value": "Client retention rate",
+        "group": "stats"
+    },
+    {
+        "key": "stat_regions",
+        "value": "4",
+        "group": "stats"
+    },
+    {
+        "key": "stat_regions_label",
+        "value": "Regions served: North America, Europe, APAC, MENA",
+        "group": "stats"
+    },
+    {
+        "key": "home_services_eyebrow",
+        "value": "What We Do",
+        "group": "home"
+    },
+    {
+        "key": "home_services_title",
+        "value": "Full-funnel services built for measurable growth",
+        "group": "home"
+    },
+    {
+        "key": "home_services_subtitle",
+        "value": "SEO, marketing, web, and brand — integrated into one accountable growth system.",
+        "group": "home"
+    },
+    {
+        "key": "home_services_cta",
+        "value": "Explore All Services",
+        "group": "home"
+    },
+    {
+        "key": "home_case_eyebrow",
+        "value": "Featured Result",
+        "group": "home"
+    },
+    {
+        "key": "home_case_title",
+        "value": "Proof over promises",
+        "group": "home"
+    },
+    {
+        "key": "home_case_subtitle",
+        "value": "How strategy-first execution turns into measurable revenue outcomes.",
+        "group": "home"
+    },
+    {
+        "key": "home_portfolio_eyebrow",
+        "value": "Selected Work",
+        "group": "home"
+    },
+    {
+        "key": "home_portfolio_title",
+        "value": "A portfolio built on outcomes",
+        "group": "home"
+    },
+    {
+        "key": "home_portfolio_subtitle",
+        "value": "Websites, brand systems, and campaigns engineered for conversion.",
+        "group": "home"
+    },
+    {
+        "key": "home_portfolio_cta",
+        "value": "View Full Portfolio",
+        "group": "home"
+    },
+    {
+        "key": "home_why_eyebrow",
+        "value": "Why Veenso",
+        "group": "home"
+    },
+    {
+        "key": "home_why_title",
+        "value": "Strategy before tactics. Accountability before applause.",
+        "group": "home"
+    },
+    {
+        "key": "home_why_subtitle",
+        "value": "Transparent reporting, integrated execution, and outcomes you can measure.",
+        "group": "home"
+    },
+    {
+        "key": "home_testimonials_eyebrow",
+        "value": "Client Voices",
+        "group": "home"
+    },
+    {
+        "key": "home_testimonials_title",
+        "value": "What partnering with Veenso looks like",
+        "group": "home"
+    },
+    {
+        "key": "home_testimonials_subtitle",
+        "value": "Real outcomes, told by the teams who lived them.",
+        "group": "home"
+    },
+    {
+        "key": "home_blog_eyebrow",
+        "value": "Insights",
+        "group": "home"
+    },
+    {
+        "key": "home_blog_title",
+        "value": "Strategy notes from the Veenso team",
+        "group": "home"
+    },
+    {
+        "key": "home_blog_subtitle",
+        "value": "Perspectives on growth, search, and brand — grounded in what moves the needle.",
+        "group": "home"
+    },
+    {
+        "key": "home_blog_cta",
+        "value": "Read More Insights",
+        "group": "home"
+    },
+    {
+        "key": "home_cta_eyebrow",
+        "value": "Let's Build Something Measurable",
+        "group": "home"
+    },
+    {
+        "key": "home_cta_title",
+        "value": "Ready to turn your digital presence into a revenue engine?",
+        "group": "home"
+    },
+    {
+        "key": "home_cta_subtitle",
+        "value": "Tell us about your goals — we'll come back with a strategy, not a sales pitch.",
+        "group": "home"
+    },
+    {
+        "key": "home_cta_button",
+        "value": "Book Your Strategy Call",
+        "group": "home"
+    },
+    {
+        "key": "cta_services_title",
+        "value": "Not sure which service fits your goals?",
+        "group": "cta"
+    },
+    {
+        "key": "cta_services_text",
+        "value": "Book a strategy call and we'll map the right mix of services to your growth targets.",
+        "group": "cta"
+    },
+    {
+        "key": "cta_services_button",
+        "value": "Book a Strategy Call",
+        "group": "cta"
+    },
+    {
+        "key": "cta_portfolio_title",
+        "value": "Have a project in mind?",
+        "group": "cta"
+    },
+    {
+        "key": "cta_portfolio_text",
+        "value": "Let's talk about what you're building and how we can help it perform.",
+        "group": "cta"
+    },
+    {
+        "key": "cta_portfolio_button",
+        "value": "Start a Project",
+        "group": "cta"
+    },
+    {
+        "key": "cta_case_title",
+        "value": "Want results like these?",
+        "group": "cta"
+    },
+    {
+        "key": "cta_case_text",
+        "value": "Tell us where you want to be in 12 months — we'll show you the strategy to get there.",
+        "group": "cta"
+    },
+    {
+        "key": "cta_case_button",
+        "value": "Book a Strategy Call",
+        "group": "cta"
+    },
+    {
+        "key": "cta_faq_title",
+        "value": "Still have questions?",
+        "group": "cta"
+    },
+    {
+        "key": "cta_faq_text",
+        "value": "Book a call and we'll answer everything specific to your business.",
+        "group": "cta"
+    },
+    {
+        "key": "cta_faq_button",
+        "value": "Book a Strategy Call",
+        "group": "cta"
+    }
+]

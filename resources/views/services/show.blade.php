@@ -54,7 +54,7 @@
             </div>
 
             <div class="reveal order-1 min-w-0 lg:order-2" data-reveal-delay="80">
-                <x-media :src="$service->featured_image" :alt="$service->title" :icon-name="$service->icon" ratio="aspect-[4/3]" />
+                <x-media :src="$service->featured_image" :alt="$service->title" :title="$service->title" :icon-name="$service->icon ?: 'sparkles'" ratio="aspect-[4/3]" />
             </div>
         </div>
     </section>
@@ -419,9 +419,9 @@
 
     @if ($relatedServices->isNotEmpty())
         <section class="section-y bg-veenso-charcoal/40">
-            <div class="container-veenso flex flex-col gap-8">
-                <x-section-heading eyebrow="More Services" title="Explore related offerings" />
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="container-veenso flex flex-col gap-6 sm:gap-8">
+                <x-section-heading eyebrow="Related Services" title="Explore more ways we can help" />
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
                     @foreach ($relatedServices as $index => $related)
                         <x-service-card :service="$related" :index="$index" />
                     @endforeach

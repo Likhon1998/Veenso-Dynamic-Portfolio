@@ -124,12 +124,20 @@ class InstallDemoContent extends Command
       <stop offset="0%" stop-color="{$fromColor}"/>
       <stop offset="100%" stop-color="{$toColor}"/>
     </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
   </defs>
-  <rect width="1200" height="800" fill="url(#g)"/>
-  <circle cx="980" cy="140" r="160" fill="rgba(255,255,255,0.08)"/>
-  <circle cx="180" cy="660" r="200" fill="rgba(0,0,0,0.12)"/>
-  <text x="600" y="390" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="700" text-anchor="middle">{$safeTitle}</text>
-  <text x="600" y="450" fill="rgba(255,255,255,0.72)" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle">Veenso Demo</text>
+  <rect width="1200" height="800" fill="#0B0B12"/>
+  <rect width="1200" height="800" fill="url(#g)" opacity="0.92"/>
+  <rect width="1200" height="320" fill="url(#shine)"/>
+  <circle cx="980" cy="140" r="180" fill="rgba(255,255,255,0.10)"/>
+  <circle cx="160" cy="680" r="220" fill="rgba(0,0,0,0.22)"/>
+  <rect x="90" y="90" width="220" height="12" rx="6" fill="rgba(255,255,255,0.35)"/>
+  <rect x="90" y="120" width="140" height="12" rx="6" fill="rgba(255,255,255,0.18)"/>
+  <text x="600" y="390" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="700" text-anchor="middle">{$safeTitle}</text>
+  <text x="600" y="455" fill="rgba(255,255,255,0.78)" font-family="system-ui, sans-serif" font-size="22" text-anchor="middle">Veenso Service</text>
 </svg>
 SVG;
 

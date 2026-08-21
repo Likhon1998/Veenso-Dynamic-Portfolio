@@ -1049,16 +1049,20 @@
 
     /* Elegant placeholder used whenever a featured image is missing */
     .media-fallback {
-        background: radial-gradient(120% 120% at 20% 15%, rgba(139, 92, 246, 0.22), transparent 55%),
+        background:
+            radial-gradient(120% 120% at 20% 15%, rgba(139, 92, 246, 0.28), transparent 55%),
+            radial-gradient(90% 80% at 85% 80%, rgba(109, 40, 217, 0.2), transparent 50%),
             linear-gradient(160deg, var(--color-veenso-elevated), var(--color-veenso-charcoal));
         border: 1px solid var(--color-veenso-border);
+        min-height: 100%;
     }
 
     .media-fallback-grid {
-        background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
         background-size: 28px 28px;
         mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 90%);
+        pointer-events: none;
     }
 
     /* Blog article body (rendered from markdown) */

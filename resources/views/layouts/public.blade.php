@@ -157,6 +157,22 @@
                 </div>
 
                 <div class="site-footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        @forelse ($footerServices as $footerService)
+                            <li>
+                                <a href="{{ route('services.show', $footerService) }}">{{ $footerService->title }}</a>
+                            </li>
+                        @empty
+                            <li><a href="{{ route('services.index') }}">All Services</a></li>
+                        @endforelse
+                    </ul>
+                    @if ($footerServices->isNotEmpty())
+                        <a href="{{ route('services.index') }}" class="site-footer-see-more">See more →</a>
+                    @endif
+                </div>
+
+                <div class="site-footer-col">
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="{{ route('contact') }}">Get in Touch</a></li>
@@ -178,26 +194,6 @@
                         <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
                         <li><a href="{{ route('terms') }}">Terms of Service</a></li>
                     </ul>
-                </div>
-            </div>
-
-            <div class="site-footer-services">
-                <div class="site-footer-services__head">
-                    <h4>Services</h4>
-                    <a href="{{ route('services.index') }}" class="site-footer-services__all">View all</a>
-                </div>
-                <div class="site-footer-service-grid">
-                    @forelse ($footerServices as $footerService)
-                        <a href="{{ route('services.show', $footerService) }}" class="site-footer-service-card">
-                            <span class="site-footer-service-card__title">{{ $footerService->title }}</span>
-                            <span class="site-footer-service-card__arrow" aria-hidden="true">→</span>
-                        </a>
-                    @empty
-                        <a href="{{ route('services.index') }}" class="site-footer-service-card">
-                            <span class="site-footer-service-card__title">All Services</span>
-                            <span class="site-footer-service-card__arrow" aria-hidden="true">→</span>
-                        </a>
-                    @endforelse
                 </div>
             </div>
 

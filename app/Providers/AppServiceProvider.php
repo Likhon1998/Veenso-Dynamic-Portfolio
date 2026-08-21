@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
                     ->where('status', 'published')
                     ->where('is_primary', true)
                     ->orderBy('sort_order')
+                    ->take(4)
                     ->get(['title', 'slug']),
                 'siteSettings' => [
                     'site_name' => SiteSetting::get('site_name', 'Veenso'),

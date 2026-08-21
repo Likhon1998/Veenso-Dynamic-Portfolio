@@ -814,7 +814,13 @@
 
     @media (width >= 48rem) {
         .site-footer-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem 2rem;
+        }
+    }
+
+    @media (width >= 64rem) {
+        .site-footer-grid {
             gap: 2rem 2.5rem;
         }
     }
@@ -863,102 +869,25 @@
         display: block;
     }
 
-    .site-footer-services {
-        margin-top: 2.25rem;
-        padding-top: 2rem;
-        border-top: 1px solid var(--color-veenso-border);
-        min-width: 0;
-    }
-
-    .site-footer-services__head {
-        display: flex;
+    .site-footer-see-more {
+        display: inline-flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .site-footer-services__head h4 {
-        margin: 0;
-        font-family: var(--font-display);
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--color-veenso-text);
-    }
-
-    .site-footer-services__all {
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--color-veenso-muted);
-        transition: color 0.2s ease;
-    }
-
-    .site-footer-services__all:hover {
-        color: var(--color-veenso-accent-light);
-    }
-
-    .site-footer-service-grid {
-        display: grid;
-        gap: 0.65rem;
-        grid-template-columns: 1fr;
-        min-width: 0;
-    }
-
-    @media (width >= 40rem) {
-        .site-footer-service-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-
-    @media (width >= 64rem) {
-        .site-footer-service-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.75rem;
-        }
-    }
-
-    .site-footer-service-card {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-        min-width: 0;
-        min-height: 2.85rem;
-        padding: 0.7rem 0.9rem;
-        border-radius: 0.75rem;
+        margin-top: 0.15rem;
+        padding: 0.45rem 0.85rem;
+        width: fit-content;
+        border-radius: 999px;
         border: 1px solid var(--color-veenso-border);
         background: color-mix(in oklab, var(--color-veenso-elevated) 70%, transparent);
-        color: var(--color-veenso-muted);
-        text-decoration: none;
-        transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--color-veenso-accent-light) !important;
+        transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
     }
 
-    .site-footer-service-card:hover {
-        border-color: color-mix(in oklab, var(--color-veenso-accent) 40%, var(--color-veenso-border));
-        background: color-mix(in oklab, var(--color-veenso-accent) 8%, var(--color-veenso-elevated));
-        color: var(--color-veenso-accent-light);
-    }
-
-    .site-footer-service-card__title {
-        min-width: 0;
-        font-size: 0.8125rem;
-        font-weight: 500;
-        line-height: 1.35;
-        overflow-wrap: anywhere;
-    }
-
-    .site-footer-service-card__arrow {
-        flex-shrink: 0;
-        font-size: 0.85rem;
-        opacity: 0.55;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .site-footer-service-card:hover .site-footer-service-card__arrow {
-        opacity: 1;
-        transform: translateX(2px);
+    .site-footer-see-more:hover {
+        border-color: color-mix(in oklab, var(--color-veenso-accent) 45%, var(--color-veenso-border));
+        background: color-mix(in oklab, var(--color-veenso-accent) 10%, var(--color-veenso-elevated));
+        color: var(--color-veenso-text) !important;
     }
 
     .site-footer-bottom {

@@ -17,7 +17,7 @@ class BrandingServiceContent
             'summary' => 'A visual identity system engineered to make customers trust and choose you before they read a single word.',
             'headline' => 'Brand Identity That Builds Instant Trust and Higher Perceived Value',
             'description' => "People buy from brands that look established and trustworthy. Inconsistent or amateur visuals quietly cost you credibility — and customers — before they read a single word. Branding also isn't a one-time deliverable; the strongest brands keep their identity refined and consistent as they grow.\n\nA strong brand identity compounds in value — the same logo and guideline system keeps paying off across every future campaign, page, and product launch.\n\nBranding & Graphic Design is the process of creating a consistent visual identity — logo, color, typography, tone — that makes your business instantly recognizable and builds trust before a single word is read.",
-            'icon' => 'sparkles',
+            'icon' => 'palette',
             'hero_badges' => ['Free Audit', 'Custom Strategy', 'No Long-Term Contracts'],
             'key_stats' => [
                 ['value' => 'Higher', 'label' => 'revenue potential from consistent branding across platforms'],

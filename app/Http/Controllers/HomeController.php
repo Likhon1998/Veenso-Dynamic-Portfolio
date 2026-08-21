@@ -52,7 +52,6 @@ class HomeController extends Controller
                 ->where('status', 'published')
                 ->where('is_primary', true)
                 ->orderBy('sort_order')
-                ->take(4)
                 ->get(),
             'featuredCaseStudy' => CaseStudy::query()
                 ->where('status', 'published')

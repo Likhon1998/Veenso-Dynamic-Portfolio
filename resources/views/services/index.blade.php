@@ -25,7 +25,7 @@
     <section class="section-y pt-0">
         <div class="container-veenso section-stack">
             <x-section-heading eyebrow="Core Services" title="Our primary growth disciplines" align="left" class="mx-0" />
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
                 @foreach ($primaryServices as $index => $service)
                     <x-service-card :service="$service" :index="$index" />
                 @endforeach

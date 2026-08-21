@@ -24,7 +24,7 @@
                     <x-icon name="arrow-right" class="h-4 w-4 rotate-180" /> All Services
                 </a>
 
-                <span class="eyebrow">01 · Service</span>
+                <span class="eyebrow">{{ str_pad((string) ($service->sort_order ?: 1), 2, '0', STR_PAD_LEFT) }} · Service</span>
                 <h1 class="font-display text-[1.75rem] font-bold leading-snug tracking-tight text-veenso-text sm:text-4xl">{{ $service->title }}</h1>
 
                 @if ($service->headline)
@@ -103,7 +103,7 @@
 {{ $descriptionParagraphs[1] }}@endif</div>
                 </div>
                 <div class="reveal flex flex-col gap-3" data-reveal-delay="80">
-                    <span class="eyebrow">What Is SEO?</span>
+                    <span class="eyebrow">What Is {{ $service->title }}?</span>
                     <div class="whitespace-pre-line text-sm leading-relaxed text-veenso-text/90 sm:text-base sm:leading-8">{{ $descriptionParagraphs[2] ?? ($descriptionParagraphs[1] ?? $service->summary) }}</div>
                 </div>
             </div>

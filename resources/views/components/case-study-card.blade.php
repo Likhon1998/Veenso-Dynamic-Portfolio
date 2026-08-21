@@ -15,7 +15,7 @@
 @endphp
 
 @if ($isFeatured)
-    <a href="{{ route('case-studies.show', $caseStudy) }}" class="reveal card-veenso group grid overflow-hidden p-0 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]" data-reveal-delay="{{ $index * 80 }}">
+    <a href="{{ route('case-studies.show', $caseStudy) }}" class="reveal card-veenso group grid min-w-0 overflow-hidden p-0 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]" data-reveal-delay="{{ $index * 80 }}">
         <div class="case-study-card-media relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[17rem]">
             @if ($imageUrl)
                 <img src="{{ $imageUrl }}" alt="{{ $caseStudy->title }}" class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy">
@@ -26,21 +26,21 @@
             @endif
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-veenso-bg/70 via-transparent to-transparent lg:bg-gradient-to-r"></div>
         </div>
-        <div class="flex flex-col justify-center gap-4 p-6 lg:p-8">
+        <div class="flex min-w-0 flex-col justify-center gap-3 p-5 sm:gap-4 sm:p-6 lg:p-8">
             @if ($caseStudy->service_category)
                 <span class="tag-veenso self-start">{{ $caseStudy->service_category }}</span>
             @endif
-            <h3 class="case-study-title text-xl transition-colors group-hover:text-veenso-accent-light lg:text-2xl">
+            <h3 class="case-study-title text-lg transition-colors group-hover:text-veenso-accent-light sm:text-xl lg:text-2xl">
                 {{ $caseStudy->title }}
             </h3>
             @if ($caseStudy->excerpt)
                 <p class="text-sm leading-relaxed text-veenso-muted line-clamp-3">{{ $caseStudy->excerpt }}</p>
             @endif
             @if (! empty($caseStudy->stats))
-                <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div class="case-study-stat-grid">
                     @foreach (array_slice($caseStudy->stats, 0, 4) as $stat)
-                        <div>
-                            <div class="case-study-metric text-lg sm:text-xl">{{ $stat['value'] }}</div>
+                        <div class="min-w-0">
+                            <div class="case-study-metric text-base sm:text-xl">{{ $stat['value'] }}</div>
                             <div class="case-study-metric-label mt-1">{{ $stat['label'] }}</div>
                         </div>
                     @endforeach
@@ -52,7 +52,7 @@
         </div>
     </a>
 @else
-    <a href="{{ route('case-studies.show', $caseStudy) }}" class="reveal card-veenso group flex h-full flex-col overflow-hidden p-0" data-reveal-delay="{{ $index * 70 }}">
+    <a href="{{ route('case-studies.show', $caseStudy) }}" class="reveal card-veenso group flex h-full min-w-0 flex-col overflow-hidden p-0" data-reveal-delay="{{ $index * 70 }}">
         <div class="case-study-card-media relative aspect-[16/10] overflow-hidden">
             @if ($imageUrl)
                 <img src="{{ $imageUrl }}" alt="{{ $caseStudy->title }}" class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy">
@@ -63,16 +63,16 @@
             @endif
             <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-veenso-bg/80 to-transparent"></div>
             @if ($primaryStat)
-                <div class="absolute bottom-3 left-3 right-3 z-10">
-                    <div class="inline-flex max-w-full items-baseline gap-2 rounded-lg border border-white/10 bg-veenso-bg/80 px-2.5 py-1.5 backdrop-blur-md">
-                        <span class="case-study-metric text-[0.95rem]">{{ $primaryStat['value'] }}</span>
+                <div class="absolute bottom-2.5 left-2.5 right-2.5 z-10 sm:bottom-3 sm:left-3 sm:right-3">
+                    <div class="inline-flex max-w-full items-baseline gap-1.5 rounded-lg border border-white/10 bg-veenso-bg/80 px-2 py-1.5 backdrop-blur-md sm:gap-2 sm:px-2.5">
+                        <span class="case-study-metric shrink-0 text-[0.9rem]">{{ $primaryStat['value'] }}</span>
                         <span class="case-study-metric-label truncate">{{ $primaryStat['label'] }}</span>
                     </div>
                 </div>
             @endif
         </div>
 
-        <div class="flex flex-1 flex-col gap-2.5 p-5">
+        <div class="flex min-w-0 flex-1 flex-col gap-2 p-4 sm:gap-2.5 sm:p-5">
             @if ($caseStudy->service_category)
                 <span class="tag-veenso self-start">{{ $caseStudy->service_category }}</span>
             @endif

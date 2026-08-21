@@ -83,7 +83,7 @@
     <footer class="relative overflow-hidden border-t border-veenso-border bg-veenso-charcoal">
         <div class="glow-orb -left-32 -top-32 h-72 w-72 opacity-30"></div>
 
-        <div class="container-veenso relative z-10 py-10 lg:py-12">
+        <div class="container-veenso relative z-10 py-8 sm:py-10 lg:py-12">
             <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
                 <div class="flex flex-col gap-4 sm:col-span-2 lg:col-span-1">
                     <a href="{{ route('home') }}" class="inline-flex items-center">
@@ -155,11 +155,11 @@
                 </div>
             </div>
 
-            <div class="divider-veenso my-10"></div>
+            <div class="divider-veenso my-8 sm:my-10"></div>
 
-            <div class="flex flex-col items-center justify-between gap-4 text-xs text-veenso-muted sm:flex-row">
+            <div class="flex flex-col items-center justify-between gap-4 text-center text-xs text-veenso-muted sm:flex-row sm:text-left">
                 <p>&copy; {{ date('Y') }} {{ $siteSettings['site_name'] }}. All rights reserved.</p>
-                <div class="flex items-center gap-6">
+                <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
                     <a href="{{ route('privacy-policy') }}" class="transition-colors hover:text-veenso-accent-light">Privacy Policy</a>
                     <a href="{{ route('terms') }}" class="transition-colors hover:text-veenso-accent-light">Terms of Service</a>
                 </div>

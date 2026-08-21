@@ -110,13 +110,12 @@
         @yield('content')
     </main>
 
-    <footer class="relative overflow-hidden border-t border-veenso-border bg-veenso-charcoal py-10 sm:py-12 lg:py-14">
+    <footer class="site-footer">
         <div class="glow-orb -left-32 -top-32 h-72 w-72 opacity-30"></div>
 
         <div class="container-veenso relative z-10">
-            {{-- Brand strip --}}
-            <div class="mb-10 flex flex-col gap-5 border-b border-veenso-border pb-8 sm:mb-12 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:pb-10">
-                <div class="flex min-w-0 max-w-xl flex-col gap-4">
+            <div class="site-footer-top">
+                <div class="site-footer-brand">
                     <a href="{{ route('home') }}" class="inline-flex items-center">
                         @if (!empty($siteSettings['brand_logo']))
                             <img src="{{ media_url($siteSettings['brand_logo']) }}" alt="{{ $siteSettings['site_name'] }}" class="h-8 w-auto max-w-[9.5rem] object-contain">
@@ -126,78 +125,85 @@
                         @endif
                     </a>
                     @if ($siteSettings['footer_text'])
-                        <p class="text-sm leading-relaxed text-veenso-muted">{{ $siteSettings['footer_text'] }}</p>
+                        <p class="site-footer-brand__text">{{ $siteSettings['footer_text'] }}</p>
                     @endif
                 </div>
-                <div class="flex flex-wrap items-center gap-2.5">
-                    @foreach (['social_linkedin' => 'in', 'social_facebook' => 'fb', 'social_instagram' => 'ig'] as $key => $label)
+
+                <div class="site-footer-socials">
+                    @foreach ([
+                        'social_linkedin' => 'LinkedIn',
+                        'social_facebook' => 'Facebook',
+                        'social_instagram' => 'Instagram',
+                    ] as $key => $label)
                         @if ($siteSettings[$key])
-                            <a href="{{ $siteSettings[$key] }}" target="_blank" rel="noopener" aria-label="{{ $label }}" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-veenso-border text-[0.65rem] font-semibold text-veenso-muted transition-colors hover:border-veenso-accent/50 hover:text-veenso-accent-light">{{ $label }}</a>
+                            <a href="{{ $siteSettings[$key] }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $label }}">
+                                {{ $key === 'social_linkedin' ? 'in' : ($key === 'social_facebook' ? 'fb' : 'ig') }}
+                            </a>
                         @endif
                     @endforeach
                 </div>
             </div>
 
-            {{-- Four columns: Explore · Services · Contact · Policies --}}
-            <div class="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 md:gap-x-8 lg:gap-x-10">
-                <div class="flex min-w-0 flex-col gap-3">
-                    <h4 class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-veenso-text">Explore</h4>
-                    <ul class="flex flex-col gap-2.5 text-sm text-veenso-muted">
-                        <li><a href="{{ route('about') }}" class="transition-colors hover:text-veenso-accent-light">About</a></li>
-                        <li><a href="{{ route('case-studies.index') }}" class="transition-colors hover:text-veenso-accent-light">Case Study</a></li>
-                        <li><a href="{{ route('portfolio.index') }}" class="transition-colors hover:text-veenso-accent-light">Portfolio</a></li>
-                        <li><a href="{{ route('blog.index') }}" class="transition-colors hover:text-veenso-accent-light">Blog</a></li>
-                        <li><a href="{{ route('faq') }}" class="transition-colors hover:text-veenso-accent-light">FAQ</a></li>
+            <div class="site-footer-grid">
+                <div class="site-footer-col">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="{{ route('about') }}">About</a></li>
+                        <li><a href="{{ route('case-studies.index') }}">Case Study</a></li>
+                        <li><a href="{{ route('portfolio.index') }}">Portfolio</a></li>
+                        <li><a href="{{ route('blog.index') }}">Blog</a></li>
+                        <li><a href="{{ route('faq') }}">FAQ</a></li>
                     </ul>
                 </div>
 
-                <div class="flex min-w-0 flex-col gap-3">
-                    <h4 class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-veenso-text">Services</h4>
-                    <ul class="flex flex-col gap-2.5 text-sm text-veenso-muted">
+                <div class="site-footer-col site-footer-col--services">
+                    <h4>Services</h4>
+                    <ul>
                         @forelse ($footerServices as $footerService)
                             <li>
-                                <a href="{{ route('services.show', $footerService) }}" class="transition-colors hover:text-veenso-accent-light">{{ $footerService->title }}</a>
+                                <a href="{{ route('services.show', $footerService) }}">{{ $footerService->title }}</a>
                             </li>
                         @empty
-                            <li><a href="{{ route('services.index') }}" class="transition-colors hover:text-veenso-accent-light">All Services</a></li>
+                            <li><a href="{{ route('services.index') }}">All Services</a></li>
                         @endforelse
                         @if ($footerServices->isNotEmpty())
-                            <li><a href="{{ route('services.index') }}" class="transition-colors hover:text-veenso-accent-light">All Services</a></li>
+                            <li><a href="{{ route('services.index') }}">View all services</a></li>
                         @endif
                     </ul>
                 </div>
 
-                <div class="flex min-w-0 flex-col gap-3">
-                    <h4 class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-veenso-text">Contact</h4>
-                    <ul class="flex flex-col gap-2.5 text-sm text-veenso-muted">
-                        <li><a href="{{ route('contact') }}" class="transition-colors hover:text-veenso-accent-light">Get in Touch</a></li>
+                <div class="site-footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="{{ route('contact') }}">Get in Touch</a></li>
                         @if ($siteSettings['email'])
-                            <li>
-                                <a href="mailto:{{ $siteSettings['email'] }}" class="break-all transition-colors hover:text-veenso-accent-light">{{ $siteSettings['email'] }}</a>
-                            </li>
+                            <li><a href="mailto:{{ $siteSettings['email'] }}">{{ $siteSettings['email'] }}</a></li>
                         @endif
                         @if ($siteSettings['phone'])
-                            <li>
-                                <a href="tel:{{ preg_replace('/\s+/', '', $siteSettings['phone']) }}" class="transition-colors hover:text-veenso-accent-light">{{ $siteSettings['phone'] }}</a>
-                            </li>
+                            <li><a href="tel:{{ preg_replace('/\s+/', '', $siteSettings['phone']) }}">{{ $siteSettings['phone'] }}</a></li>
                         @endif
                         @if ($siteSettings['address'])
-                            <li class="leading-relaxed">{{ $siteSettings['address'] }}</li>
+                            <li><span class="site-footer-meta">{{ $siteSettings['address'] }}</span></li>
                         @endif
                     </ul>
                 </div>
 
-                <div class="flex min-w-0 flex-col gap-3">
-                    <h4 class="font-display text-xs font-semibold uppercase tracking-[0.14em] text-veenso-text">Policies</h4>
-                    <ul class="flex flex-col gap-2.5 text-sm text-veenso-muted">
-                        <li><a href="{{ route('privacy-policy') }}" class="transition-colors hover:text-veenso-accent-light">Privacy Policy</a></li>
-                        <li><a href="{{ route('terms') }}" class="transition-colors hover:text-veenso-accent-light">Terms of Service</a></li>
+                <div class="site-footer-col">
+                    <h4>Policies</h4>
+                    <ul>
+                        <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ route('terms') }}">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="mt-10 border-t border-veenso-border pt-6 text-center text-xs text-veenso-muted sm:mt-12 sm:text-left">
+            <div class="site-footer-bottom">
                 <p>&copy; {{ date('Y') }} {{ $siteSettings['site_name'] }}. All rights reserved.</p>
+                <div class="site-footer-bottom__links">
+                    <a href="{{ route('privacy-policy') }}">Privacy</a>
+                    <a href="{{ route('terms') }}">Terms</a>
+                    <a href="{{ route('contact') }}">Contact</a>
+                </div>
             </div>
         </div>
     </footer>

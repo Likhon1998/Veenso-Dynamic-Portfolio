@@ -42,7 +42,7 @@
 
     <section class="section-y pt-0">
         <div class="container-veenso">
-            <div class="reveal case-study-cta relative overflow-hidden border border-veenso-border bg-gradient-to-br from-veenso-elevated via-veenso-charcoal to-veenso-bg text-center">
+            <div class="reveal relative overflow-hidden rounded-[1.25rem] border border-veenso-border bg-gradient-to-br from-veenso-elevated via-veenso-charcoal to-veenso-bg px-5 py-10 text-center sm:rounded-[1.75rem] sm:px-8 sm:py-14 lg:px-16">
                 <div class="glow-orb left-1/2 top-0 h-72 w-72 -translate-x-1/2 -translate-y-1/2 opacity-50"></div>
                 <div class="relative z-10 flex flex-col items-center gap-4 sm:gap-6">
                     <h2 class="font-display max-w-xl text-xl font-bold leading-snug text-veenso-text sm:text-3xl">{{ $siteSettings['cta_case_title'] ?? 'Want results like these?' }}</h2>

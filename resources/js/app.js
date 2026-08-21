@@ -5,25 +5,44 @@ function initScrollReveal() {
 
     if (!targets.length) return;
 
+    const show = (el) => el.classList.add('is-visible');
+
     if (!('IntersectionObserver' in window)) {
-        targets.forEach((el) => el.classList.add('is-visible'));
+        targets.forEach(show);
         return;
     }
+
+    // Failsafe: never leave content invisible if observer never fires
+    const failsafe = setTimeout(() => {
+        targets.forEach(show);
+    }, 2500);
 
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const delay = entry.target.dataset.revealDelay || 0;
-                    setTimeout(() => entry.target.classList.add('is-visible'), Number(delay));
+                    setTimeout(() => show(entry.target), Number(delay));
                     observer.unobserve(entry.target);
                 }
             });
         },
-        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
     );
 
     targets.forEach((el) => observer.observe(el));
+
+    // Clear failsafe once everything above the fold is handled
+    window.addEventListener('load', () => {
+        clearTimeout(failsafe);
+        // Still reveal anything that should already be on screen
+        targets.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.95) {
+                show(el);
+            }
+        });
+    }, { once: true });
 }
 
 function initHeaderScrollState() {

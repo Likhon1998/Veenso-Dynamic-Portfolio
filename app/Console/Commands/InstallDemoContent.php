@@ -18,6 +18,7 @@ use App\Support\AiSearchServiceContent;
 use App\Support\BrandingServiceContent;
 use App\Support\EmailMarketingServiceContent;
 use App\Support\GoogleMetaAdsServiceContent;
+use App\Support\ProductVisualsServiceContent;
 use App\Support\SeoServiceContent;
 use App\Support\SocialMediaServiceContent;
 use App\Support\VideoEditingServiceContent;
@@ -403,6 +404,8 @@ SVG;
             ?? $this->makeSvgImage('uploads/services/email-marketing-lead-generation.svg', 'Email', '#14B8A6', '#0F766E');
         $videoImage = $this->installDemoAsset('video-editing-service-hero.png', 'uploads/services/video-editing-service-hero.png')
             ?? $this->makeSvgImage('uploads/services/video-editing-promotional-video.svg', 'Video', '#E11D48', '#9F1239');
+        $productImage = $this->installDemoAsset('product-visuals-service-hero.png', 'uploads/services/product-visuals-service-hero.png')
+            ?? $this->makeSvgImage('uploads/services/product-visuals.svg', 'Product Visuals', '#A78BFA', '#6D28D9');
 
         $services = [
             SeoServiceContent::payload($seoImage),
@@ -413,6 +416,7 @@ SVG;
             GoogleMetaAdsServiceContent::payload($adsImage),
             EmailMarketingServiceContent::payload($emailImage),
             VideoEditingServiceContent::payload($videoImage),
+            ProductVisualsServiceContent::payload($productImage),
         ];
 
         $keepSlugs = [];

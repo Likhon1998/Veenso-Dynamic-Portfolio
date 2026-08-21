@@ -17,6 +17,7 @@ use App\Models\WhyChooseItem;
 use App\Support\AiSearchServiceContent;
 use App\Support\BrandingServiceContent;
 use App\Support\SeoServiceContent;
+use App\Support\SocialMediaServiceContent;
 use App\Support\WebsiteDesignServiceContent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -223,11 +224,11 @@ SVG;
             ['key' => 'address', 'value' => '1200 Market Street, Suite 400, San Francisco, CA 94103', 'group' => 'contact'],
             ['key' => 'socials', 'value' => [
                 'linkedin' => 'https://linkedin.com/company/veenso',
-                'twitter' => 'https://twitter.com/veenso',
+                'facebook' => 'https://facebook.com/veenso',
                 'instagram' => 'https://instagram.com/veenso',
             ], 'group' => 'social'],
             ['key' => 'social_linkedin', 'value' => 'https://linkedin.com/company/veenso', 'group' => 'social'],
-            ['key' => 'social_twitter', 'value' => 'https://twitter.com/veenso', 'group' => 'social'],
+            ['key' => 'social_facebook', 'value' => 'https://facebook.com/veenso', 'group' => 'social'],
             ['key' => 'social_instagram', 'value' => 'https://instagram.com/veenso', 'group' => 'social'],
             ['key' => 'brand_logo', 'value' => $brandLogo, 'group' => 'brand'],
             ['key' => 'hero_image', 'value' => $heroImage ?? '', 'group' => 'hero'],
@@ -391,12 +392,15 @@ SVG;
             ?? $this->makeSvgImage('uploads/services/branding.svg', 'Branding', '#EC4899', '#BE185D');
         $aiImage = $this->installDemoAsset('ai-search-service-hero.png', 'uploads/services/ai-search-service-hero.png')
             ?? $this->makeSvgImage('uploads/services/ai-search-optimization.svg', 'AI Search', '#6366F1', '#4338CA');
+        $socialImage = $this->installDemoAsset('social-media-service-hero.png', 'uploads/services/social-media-service-hero.png')
+            ?? $this->makeSvgImage('uploads/services/social-media-marketing.svg', 'Social Media', '#F43F5E', '#BE123C');
 
         $services = [
             SeoServiceContent::payload($seoImage),
             WebsiteDesignServiceContent::payload($webImage),
             BrandingServiceContent::payload($brandImage),
             AiSearchServiceContent::payload($aiImage),
+            SocialMediaServiceContent::payload($socialImage),
         ];
 
         $keepSlugs = [];

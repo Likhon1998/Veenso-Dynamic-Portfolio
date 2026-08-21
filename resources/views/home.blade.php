@@ -129,7 +129,7 @@
                 :subtitle="$copy['home_services_subtitle']"
             />
 
-            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 @foreach ($services as $index => $service)
                     <x-service-card :service="$service" :index="$index" />
                 @endforeach

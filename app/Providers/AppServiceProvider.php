@@ -32,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
                     ->where('status', 'published')
                     ->where('is_primary', true)
                     ->orderBy('sort_order')
-                    ->take(5)
                     ->get(['title', 'slug']),
                 'siteSettings' => [
                     'site_name' => SiteSetting::get('site_name', 'Veenso'),
@@ -42,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
                     'address' => SiteSetting::get('address'),
                     'footer_text' => SiteSetting::get('footer_text'),
                     'social_linkedin' => SiteSetting::get('social_linkedin'),
-                    'social_twitter' => SiteSetting::get('social_twitter'),
+                    'social_facebook' => SiteSetting::get('social_facebook'),
                     'social_instagram' => SiteSetting::get('social_instagram'),
                     'brand_logo' => SiteSetting::get('brand_logo'),
                     'hero_image' => SiteSetting::get('hero_image'),

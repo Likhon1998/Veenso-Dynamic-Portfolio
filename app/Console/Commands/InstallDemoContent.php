@@ -87,7 +87,9 @@ class InstallDemoContent extends Command
             'portfolio_images',
             'portfolio_items',
             'services',
+            'case_study_images',
             'case_studies',
+            'blog_post_images',
             'blog_posts',
             'testimonials',
             'faqs',
@@ -854,61 +856,173 @@ SVG;
 
     private function importCaseStudies(): void
     {
-        $atlasImage = $this->makeSvgImage('uploads/case-studies/atlas-commerce.svg', 'Atlas Commerce', '#1D4ED8', '#1E3A8A');
-        $summitImage = $this->makeSvgImage('uploads/case-studies/summit-financial.svg', 'Summit Financial', '#047857', '#064E3B');
+        $jewelryFeatured = $this->installDemoAsset('jewelry-case-hero.png', 'uploads/case-studies/jewelry-case-hero.png')
+            ?? $this->installDemoAsset('jewelry-seo-apr-jul.png', 'uploads/case-studies/jewelry-seo-featured.png')
+            ?? $this->makeSvgImage('uploads/case-studies/jewelry-seo.svg', 'Jewelry SEO', '#B45309', '#78350F');
+        $dentalFeatured = $this->installDemoAsset('dental-case-hero.png', 'uploads/case-studies/dental-case-hero.png')
+            ?? $this->installDemoAsset('dental-local-seo-compare.png', 'uploads/case-studies/dental-local-seo-featured.png')
+            ?? $this->makeSvgImage('uploads/case-studies/dental-local-seo.svg', 'Dental Local SEO', '#0F766E', '#134E4A');
+        $lawFeatured = $this->installDemoAsset('law-case-hero.png', 'uploads/case-studies/law-case-hero.png')
+            ?? $this->installDemoAsset('law-firm-new-site-seo.png', 'uploads/case-studies/law-firm-new-site-seo-featured.png')
+            ?? $this->makeSvgImage('uploads/case-studies/law-firm-new-site-seo.svg', 'Law Firm SEO', '#1E3A8A', '#1D4ED8');
 
         $studies = [
             [
-                'title' => 'How Atlas Commerce Increased Revenue Per Session by 41%',
-                'slug' => 'atlas-commerce-revenue-growth',
-                'client_name' => 'Atlas Commerce',
-                'challenge' => "Atlas Commerce was running a outdated Shopify theme with a 68% mobile bounce rate, no email capture on product pages, and broken GA4 e-commerce tracking. Their paid ads were driving traffic but ROAS had plateaued at 1.8X because landing experiences did not match ad promises.\n\nLeadership needed a unified solution — not another patch on a failing foundation.",
-                'strategy' => "We audited the full customer journey from ad click to purchase confirmation. The strategy focused on three pillars: platform migration to Shopify Plus for performance and flexibility, conversion-optimized product page templates with embedded email capture, and proper GA4 + GTM implementation for accurate attribution.\n\nEvery decision was tied to revenue per session as the north star metric.",
-                'implementation' => 'Over 10 weeks, we migrated 2,400 SKUs to Shopify Plus, redesigned the product page template with A/B-tested layouts, implemented Klaviyo browse-abandonment flows, and rebuilt the analytics stack with server-side GTM. Paid campaigns were restructured around high-intent product categories with dedicated landing pages.',
-                'results' => 'Within the first quarter post-launch, Atlas Commerce saw measurable improvements across every KPI we tracked. Revenue per session increased 41%, mobile bounce rate dropped from 68% to 39%, and email-attributed revenue grew to 22% of total revenue. Paid ROAS improved from 1.8X to 3.4X with the same ad spend.',
+                'title' => 'E-Commerce SEO Case Study: Turning a Stalled Jewelry Store Into a Consistent Organic Growth Engine',
+                'slug' => 'ecommerce-jewelry-seo-organic-growth',
+                'client_name' => 'Confidential U.S. Jewelry Brand',
+                'challenge' => "A Shopify-based jewelry brand came to us with a familiar problem: a well-built store with strong products, but organic search wasn't pulling its weight. Product and collection pages were nearly invisible on Google, keyword rankings sat deep on page 3+, and the business was leaning almost entirely on paid ads to bring in traffic. Every new sale was costing money in ad spend — there was no free, compounding channel doing the work in the background.\n\nA deeper audit surfaced the real blockers:\n• Thin, generic product descriptions doing nothing to signal relevance for high-intent buyer searches\n• No structured data (Schema) on product or collection pages, so Google couldn't fully understand — or richly display — the catalog\n• Weak internal linking, leaving collection and product pages isolated with no equity flowing between them\n• Duplicate meta titles and descriptions across near-identical product variants\n• Crawl and indexation gaps that were quietly keeping entire sections of the catalog out of Google's index\n• Little to no informational content, meaning the site had no way to capture buyers earlier in their research journey\n\nThe mandate was clear: build durable, compounding organic visibility — without depending entirely on paid ads to keep the lights on.",
+                'strategy' => "Rather than chasing a quick spike, we built a layered SEO system designed to compound month over month.\n\n☑ Technical Foundation\nFull technical audit, indexation fixes, sitemap and robots.txt optimization, canonical cleanup, Core Web Vitals improvements, and full structured data implementation (Product Schema, Breadcrumb Schema) so Google could crawl, understand, and richly render every page.\n\n☑ Keyword & Intent Mapping\nEvery product and collection page was mapped to a primary commercial keyword plus supporting semantic terms — covering high-intent buying searches, long-tail variations, and lower-competition opportunities other jewelry retailers were ignoring.\n\n☑ On-Page & Shopify-Specific SEO\nRewritten titles, meta descriptions, and header structure across priority pages; optimized product images and alt tags; a variant indexing strategy so individual product variations could rank independently instead of competing with each other; and a rebuilt internal linking structure connecting collections, products, and content.\n\n☑ Content & Topical Authority\nBuying guides, FAQ sections, and educational content built around real jewelry search intent — helping the site earn authority beyond just transactional product pages, and capturing shoppers still in the research phase.",
+                'implementation' => "Data Source: Google Search Console. Metrics compare the stated reporting periods before and after the SEO campaign.\n\nThe growth wasn't the result of one tactic — it came from fixing the foundation first (technical + indexation), then giving Google a reason to trust and rank the site (structured content + internal linking + Schema), then capturing demand across the full buyer journey (commercial + informational keywords). Each layer supported the next, which is why the growth curve kept climbing instead of plateauing.",
+                'results' => "The data tells the story cleanly. Clicks and impressions tracked flat and low through the first quarter of the campaign, then broke into sustained upward momentum as the technical fixes and content began compounding — climbing from a 445-click, 35.6K-impression month in April to a 3.62K-click, 152K-impression month in July, a 713% and 327% lift respectively, with average position improving by nearly 9 spots in the same window.\n\nJust as important as the size of the growth is the shape of it: this wasn't a single-month spike that faded. The upward trend held and continued climbing through the full reporting period, which is the real signal of durable, compounding SEO — not a paid-traffic sugar high.\n\nOver the full campaign window, the store generated 14.2K total organic clicks and 685K impressions — a durable, compounding lift, not a one-month spike.",
                 'stats' => [
-                    ['label' => 'Revenue per session', 'value' => '+41%'],
-                    ['label' => 'Mobile bounce rate', 'value' => '-43%'],
-                    ['label' => 'Paid ROAS', 'value' => '3.4X'],
-                    ['label' => 'Email revenue share', 'value' => '22%'],
+                    ['label' => 'Organic clicks growth', 'value' => '+713%'],
+                    ['label' => 'Impressions growth', 'value' => '+327%'],
+                    ['label' => 'Avg CTR', 'value' => '2.4%'],
+                    ['label' => 'Avg position', 'value' => '27.2'],
                 ],
-                'service_category' => 'Website Design & Development',
+                'service_category' => 'E-Commerce SEO',
+                'featured' => true,
+                'status' => 'published',
+                'sort_order' => 0,
+                'featured_image' => $jewelryFeatured,
+                'excerpt' => 'Industry: E-Commerce (Jewelry) | Platform: Shopify | Full-funnel SEO campaign that grew organic clicks 713% and impressions 327% in three months.',
+                'meta_title' => 'Jewelry E-Commerce SEO Case Study | Veenso',
+                'meta_description' => 'How a U.S. Shopify jewelry brand grew organic clicks 713% and impressions 327% with a full-funnel SEO campaign.',
+                '_gallery' => [
+                    [
+                        'source' => 'jewelry-seo-apr-jul.png',
+                        'dest' => 'uploads/case-studies/gallery/jewelry-seo-apr-jul.png',
+                        'alt' => 'Google Search Console: April vs July 2025 comparison',
+                        'caption' => 'Month comparison: clicks grew 713% and impressions grew 327% (Apr → Jul 2025).',
+                    ],
+                    [
+                        'source' => 'jewelry-seo-full-window.png',
+                        'dest' => 'uploads/case-studies/gallery/jewelry-seo-full-window.png',
+                        'alt' => 'Google Search Console: full campaign window Jan–Jul 2025',
+                        'caption' => 'Full campaign window: 14.2K organic clicks and 685K impressions after project start.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Local SEO Case Study: Growing a Dental Clinic\'s Organic Visibility From the Ground Up',
+                'slug' => 'dental-clinic-local-seo-organic-visibility',
+                'client_name' => 'Confidential U.S. Dental Practice',
+                'challenge' => "A USA-based dental clinic came to us with a problem shared by most local healthcare practices: a professional, well-built website that simply wasn't showing up when patients searched. Service pages weren't ranking, the clinic's local presence was thin, and competitors were consistently outranking them for the exact searches that turn into booked appointments — \"dentist near me,\" specific procedures, and emergency care terms.\n\nOur audit uncovered the gaps holding the site back:\n• Weak, inconsistent Core Web Vitals and page speed dragging down both rankings and user experience\n• Duplicate metadata across service pages, diluting relevance signals\n• An under-optimized Google Business Profile with inconsistent NAP (Name, Address, Phone) data across directories\n• Missing Local Business Schema, so Google had no structured way to understand the clinic's services and service area\n• Thin service pages with little informational content to support patient search intent\n• Very few location-focused landing pages, despite the practice serving multiple nearby communities",
+                'strategy' => "We built a campaign around three pillars working together — technical health, local presence, and content depth.\n\n☑ Technical SEO\nFull site audit, crawl error fixes, indexation cleanup, XML sitemap and robots.txt optimization, and targeted Core Web Vitals and page speed improvements to remove the friction holding rankings back.\n\n☑ Local SEO\nGoogle Business Profile optimization, NAP consistency corrections across citations, local citation building, Local Business Schema implementation, and new location-focused landing pages to strengthen relevance for \"near me\" and service-area searches.\n\n☑ On-Page & Content\nKeyword research mapped to real patient search intent, rewritten titles and meta descriptions, stronger internal linking, image SEO, and new content — dental service pages, preventive care guides, and FAQ sections — built to answer the questions patients are actually searching before they book.",
+                'implementation' => "Data Source: Google Search Console. Metrics compare the stated reporting periods before and after the SEO campaign.\n\nLocal SEO for healthcare only works when technical health, local signals, and content intent are addressed together — fixing site speed alone doesn't rank a practice if Google Business Profile data is inconsistent, and building citations alone doesn't help if the site's service pages are too thin to satisfy patient intent once they arrive. By solving all three simultaneously, the clinic saw the kind of compounding, sustained growth this data reflects — not a short-lived bump.",
+                'results' => "The Search Console data shows a clear inflection point. In the months before the campaign began, clicks and impressions were flat and low. From the point SEO content services began, the trend line broke upward and kept climbing — impressions roughly doubling in range and clicks following the same trajectory, sustained over the following months rather than spiking and fading.\n\nComparing the six months before the ramp-up to the six months after: clicks grew from 130 to 1.9K (+1361.5%), impressions from 4.5K to 22.8K (+407%), and average position improved by more than 12 spots — moving the practice from largely invisible (page 3, position ~28) into consistent page 1–2 visibility (position ~16). CTR climbed alongside it, from 2.9% to 4.8%, meaning more of the people seeing the clinic in search results were choosing to click through.\n\nOver the last 6 months, organic search performance improved significantly across every metric: clicks +1,361.5%, impressions +407%, CTR +66%, and average position improved from 27.9 to 15.6.",
+                'stats' => [
+                    ['label' => 'Organic clicks growth', 'value' => '+1361%'],
+                    ['label' => 'Impressions growth', 'value' => '+407%'],
+                    ['label' => 'Avg CTR', 'value' => '4.8%'],
+                    ['label' => 'Avg position', 'value' => '15.6'],
+                ],
+                'service_category' => 'Local SEO',
                 'featured' => true,
                 'status' => 'published',
                 'sort_order' => 1,
-                'featured_image' => $atlasImage,
-                'excerpt' => 'Shopify Plus migration and conversion optimization drove 41% revenue-per-session growth and 3.4X ROAS.',
-                'meta_title' => 'Atlas Commerce Case Study | Veenso',
-                'meta_description' => 'How Veenso helped Atlas Commerce increase revenue per session by 41% through platform migration and conversion optimization.',
+                'featured_image' => $dentalFeatured,
+                'excerpt' => 'Industry: Dental Clinic | Location: USA | Platform: WordPress | Complete Local SEO campaign that grew organic clicks 1,361.5% and impressions 407%.',
+                'meta_title' => 'Dental Clinic Local SEO Case Study | Veenso',
+                'meta_description' => 'How a U.S. dental practice grew organic clicks 1,361.5% and impressions 407% with a complete Local SEO campaign.',
+                '_gallery' => [
+                    [
+                        'source' => 'dental-local-seo-compare.png',
+                        'dest' => 'uploads/case-studies/gallery/dental-local-seo-compare.png',
+                        'alt' => 'Google Search Console: previous 6 months vs last 6 months comparison',
+                        'caption' => 'Six-month comparison: clicks 130 → 1.9K (+1361.5%), impressions 4.5K → 22.8K (+407%).',
+                    ],
+                    [
+                        'source' => 'dental-local-seo-timeline.png',
+                        'dest' => 'uploads/case-studies/gallery/dental-local-seo-timeline.png',
+                        'alt' => 'Google Search Console timeline showing SEO content services start',
+                        'caption' => 'Clear inflection after SEO content services began — sustained climb in clicks and impressions.',
+                    ],
+                ],
             ],
             [
-                'title' => 'Summit Financial: 187% Organic Traffic Growth in 12 Months',
-                'slug' => 'summit-financial-organic-growth',
-                'client_name' => 'Summit Financial',
-                'challenge' => "Summit Financial relied almost entirely on referrals and paid search for new client acquisition. Their website ranked for only 12 non-branded keywords, technical SEO issues blocked crawl efficiency, and they had no content strategy targeting high-intent financial planning queries.\n\nOrganic was an untapped channel with significant revenue potential.",
-                'strategy' => 'We built a 12-month SEO roadmap targeting commercial-intent keywords in retirement planning, wealth management, and tax optimization. The strategy combined technical remediation, pillar content clusters, and strategic link acquisition from financial publications.',
-                'implementation' => 'Month 1–2 focused on technical fixes: site speed, schema markup, and indexation. Months 3–8 delivered 48 optimized content pieces across four topic clusters. Months 6–12 executed a link building campaign targeting finance industry publications and local business directories.',
-                'results' => 'Organic traffic grew 187% year-over-year. Non-branded keyword rankings increased from 12 to 340. The firm now generates 63 qualified leads per month from organic search — at zero marginal acquisition cost.',
+                'title' => 'New Website SEO Case Study: Launching a Law Firm From Zero to First-Page Visibility',
+                'slug' => 'law-firm-new-website-seo-zero-to-first-page',
+                'client_name' => 'Confidential U.S. Law Firm',
+                'challenge' => "Launching a new law firm website is one of the hardest SEO projects to win. There's no domain authority, no existing rankings, no backlink profile, and — in a field as competitive and high-value as legal services — established firms with years of accumulated trust dominate the search results for every meaningful keyword.\n\nThis client came to us with exactly that starting point: a professionally built lawyer website with strong service offerings, but completely invisible on Google. No practice area pages were ranking, there was no indexed content for Google to evaluate, and the firm had no way to compete against long-established competitors without either overspending on ads or waiting years for organic authority to build naturally.\n\nThe brief was to build visibility fast, but sustainably — creating a foundation that would keep compounding long after the initial launch phase.",
+                'strategy' => "☑ Technical Foundation First\nBefore any content or keyword work began, we ensured the site was fully crawlable and indexable — XML sitemap setup, robots.txt configuration, canonical URL structure, mobile usability, Core Web Vitals, and HTTPS validation, so nothing technical stood between the site and Google's index.\n\n☑ Keyword Research Built for a New Domain\nRather than targeting the most competitive head terms immediately — \"personal injury lawyer,\" \"divorce lawyer,\" and similarly saturated searches — we identified achievable opportunities with strong commercial intent: long-tail variations, supporting semantic keywords, and topic clusters around each practice area. This gave the site a realistic path to visibility while still building toward the high-value commercial terms over time.\n\n☑ On-Page SEO Across Every Practice Area\nEvery service page was optimized individually — SEO-friendly title tags, compelling meta descriptions, proper heading hierarchy, internal linking between related practice areas, schema markup, and content structured to directly answer what a prospective client is searching for at the moment of intent.\n\n☑ Content Built to Establish Authority\nA structured content plan — practice area pages, FAQ content, and informational articles answering real client questions — helped Google understand the firm's expertise across its core legal specialties, while also capturing long-tail, research-stage traffic that head-term competition would have blocked entirely.\n\n☑ Continuous Monitoring\nWeekly Search Console analysis identified which pages were gaining traction, which needed reinforcement, and where new keyword opportunities were emerging — allowing the strategy to adapt in real time rather than running on a fixed plan.",
+                'implementation' => "New websites don't get penalized for being new — they get overlooked because they haven't yet given Google a reason to trust them. By fixing the technical foundation first, targeting realistic keyword opportunities instead of the most competitive terms out of the gate, and building genuine topical authority through content, the site earned visibility Google could justify — which is why the growth held and compounded instead of stalling after an initial bump.",
+                'results' => "The growth curve tells the real story: for the first few weeks after launch, clicks and impressions sat close to zero — the expected reality for any brand-new domain with no search history. From there, the trend broke upward and kept climbing through the full four-month window, with impressions and clicks both showing a clear, sustained acceleration rather than a single spike.\n\nBy the end of the period, the site had earned 2.42K organic clicks and 56.8K impressions, with an average position of 12.9 — meaning the firm was now regularly appearing on page 1–2 for its target legal search terms. This organic visibility was achieved without relying on paid advertising for organic search traffic.\n\nStarting from a website with zero search visibility, zero keyword rankings, and no backlink or trust history, the firm reached page 1–2 visibility (average position 12.9) across dozens of legal search terms within four months — without any paid advertising.",
                 'stats' => [
-                    ['label' => 'Organic traffic growth', 'value' => '+187%'],
-                    ['label' => 'Non-branded keywords', 'value' => '340'],
-                    ['label' => 'Monthly organic leads', 'value' => '63'],
-                    ['label' => 'Cost per organic lead', 'value' => '$0'],
+                    ['label' => 'Organic clicks', 'value' => '2.42K'],
+                    ['label' => 'Impressions', 'value' => '56.8K'],
+                    ['label' => 'Avg CTR', 'value' => '3.9%'],
+                    ['label' => 'Avg position', 'value' => '12.9'],
                 ],
-                'service_category' => 'SEO',
+                'service_category' => 'New Website SEO',
                 'featured' => true,
                 'status' => 'published',
                 'sort_order' => 2,
-                'featured_image' => $summitImage,
-                'excerpt' => '12-month SEO program delivered 187% organic traffic growth and 63 qualified leads per month.',
-                'meta_title' => 'Summit Financial Case Study | Veenso',
-                'meta_description' => 'How Veenso drove 187% organic traffic growth and 63 monthly leads for Summit Financial.',
+                'featured_image' => $lawFeatured,
+                'excerpt' => 'Industry: Law Firm | Location: Texas, USA | New website SEO launch from zero visibility to 2.42K clicks and average position 12.9 in four months.',
+                'meta_title' => 'Law Firm New Website SEO Case Study | Veenso',
+                'meta_description' => 'How a Texas law firm went from zero search visibility to 2.42K organic clicks and page 1–2 rankings in four months.',
+                '_gallery' => [
+                    [
+                        'source' => 'law-firm-new-site-seo.png',
+                        'dest' => 'uploads/case-studies/gallery/law-firm-new-site-seo.png',
+                        'alt' => 'Google Search Console: first 4 months Jan–Apr 2024',
+                        'caption' => 'From zero to 2.42K clicks and 56.8K impressions in the first four months after launch.',
+                    ],
+                ],
             ],
         ];
 
+        $keptSlugs = [];
+
         foreach ($studies as $study) {
-            CaseStudy::query()->updateOrCreate(['slug' => $study['slug']], $study);
+            $gallery = $study['_gallery'] ?? [];
+            unset($study['_gallery']);
+
+            $caseStudy = CaseStudy::query()->updateOrCreate(['slug' => $study['slug']], $study);
+            $keptSlugs[] = $caseStudy->slug;
+
+            foreach ($gallery as $index => $image) {
+                $path = $this->installDemoAsset($image['source'], $image['dest']);
+                if (! $path) {
+                    continue;
+                }
+
+                \App\Models\CaseStudyImage::query()->updateOrCreate(
+                    [
+                        'case_study_id' => $caseStudy->id,
+                        'path' => $path,
+                    ],
+                    [
+                        'alt' => $image['alt'] ?? null,
+                        'caption' => $image['caption'] ?? null,
+                        'sort_order' => $index + 1,
+                    ]
+                );
+            }
         }
+
+        CaseStudy::query()
+            ->whereNotIn('slug', $keptSlugs)
+            ->get()
+            ->each(function (CaseStudy $caseStudy) {
+                $caseStudy->images()->delete();
+                $caseStudy->delete();
+            });
+    }
+
+    private function installDemoAsset(string $filename, string $dest): ?string
+    {
+        $source = storage_path('app/demo-assets/'.$filename);
+
+        if (! is_file($source)) {
+            return null;
+        }
+
+        Storage::disk('public')->put($dest, file_get_contents($source));
+
+        return $dest;
     }
 
     private function importTestimonials(): void

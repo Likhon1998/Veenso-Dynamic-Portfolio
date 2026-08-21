@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesFormArrays;
 use App\Http\Controllers\Admin\Concerns\HandlesImageUploads;
+use App\Http\Controllers\Admin\Concerns\SyncsGalleryImages;
 use App\Http\Controllers\Controller;
 use App\Models\CaseStudy;
+use App\Models\CaseStudyImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CaseStudyController extends Controller
 {
-    use HandlesFormArrays, HandlesImageUploads;
+    use HandlesFormArrays, HandlesImageUploads, SyncsGalleryImages;
 
     public function index(): View
     {
@@ -34,13 +36,22 @@ class CaseStudyController extends Controller
             $validated['featured_image'] = $this->storeUploadedImage($request->file('featured_image'), 'case-studies');
         }
 
-        CaseStudy::query()->create($validated);
+        $caseStudy = CaseStudy::query()->create($validated);
+        $this->syncRelatedGalleryImages(
+            $request,
+            $caseStudy,
+            CaseStudyImage::class,
+            'case_study_id',
+            'case-studies/gallery'
+        );
 
         return redirect()->route('admin.case-studies.index')->with('success', 'Case study created successfully.');
     }
 
     public function edit(CaseStudy $caseStudy): View
     {
+        $caseStudy->load('images');
+
         return view('admin.case-studies.edit', compact('caseStudy'));
     }
 
@@ -53,12 +64,20 @@ class CaseStudyController extends Controller
         }
 
         $caseStudy->update($validated);
+        $this->syncRelatedGalleryImages(
+            $request,
+            $caseStudy,
+            CaseStudyImage::class,
+            'case_study_id',
+            'case-studies/gallery'
+        );
 
         return redirect()->route('admin.case-studies.index')->with('success', 'Case study updated successfully.');
     }
 
     public function destroy(CaseStudy $caseStudy): RedirectResponse
     {
+        $caseStudy->images()->delete();
         $caseStudy->delete();
 
         return redirect()->route('admin.case-studies.index')->with('success', 'Case study deleted successfully.');
@@ -66,7 +85,7 @@ class CaseStudyController extends Controller
 
     private function validateCaseStudy(Request $request): array
     {
-        $validated = $request->validate([
+        $validated = $request->validate(array_merge([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
             'client_name' => ['nullable', 'string', 'max:255'],
@@ -79,16 +98,22 @@ class CaseStudyController extends Controller
             'featured' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['required', 'in:draft,published'],
-            'featured_image' => ['nullable', 'image', 'max:5120'],
+            'featured_image' => ['nullable', 'image', 'max:8192'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string'],
             'stats' => ['nullable', 'string'],
-        ]);
+        ], $this->galleryValidationRules('case_study_images')));
 
         $validated['featured'] = $request->boolean('featured');
         $validated['stats'] = $this->jsonToArray($request->input('stats'));
 
-        unset($validated['featured_image']);
+        unset(
+            $validated['featured_image'],
+            $validated['gallery_images'],
+            $validated['delete_image_ids'],
+            $validated['image_alts'],
+            $validated['image_captions']
+        );
 
         return $validated;
     }

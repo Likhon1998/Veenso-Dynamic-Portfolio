@@ -1,28 +1,90 @@
-@props(['caseStudy', 'index' => 0])
+@props(['caseStudy', 'index' => 0, 'variant' => 'grid'])
 
-<a href="{{ route('case-studies.show', $caseStudy) }}" class="reveal card-veenso group grid gap-0 overflow-hidden p-0 lg:grid-cols-2" data-reveal-delay="{{ $index * 80 }}">
-    <x-media :src="$caseStudy->featured_image" :alt="$caseStudy->title" ratio="aspect-[4/3] lg:aspect-auto lg:h-full" icon-name="target" :label="$caseStudy->service_category" class="rounded-none" />
+@php
+    $imageUrl = null;
+    $src = $caseStudy->featured_image;
+    if ($src) {
+        if (str_starts_with($src, 'http://') || str_starts_with($src, 'https://')) {
+            $imageUrl = $src;
+        } elseif (\Illuminate\Support\Facades\Storage::disk('public')->exists(ltrim($src, '/'))) {
+            $imageUrl = \Illuminate\Support\Facades\Storage::url(ltrim($src, '/'));
+        }
+    }
+    $primaryStat = ! empty($caseStudy->stats) ? $caseStudy->stats[0] : null;
+    $isFeatured = $variant === 'featured';
+@endphp
 
-    <div class="flex flex-col gap-3 p-6 lg:p-7">
-        <span class="tag-veenso self-start">{{ $caseStudy->service_category }}</span>
-        <h3 class="font-display text-lg lg:text-xl font-semibold leading-snug text-veenso-text transition-colors group-hover:text-veenso-accent-light">
-            {{ $caseStudy->title }}
-        </h3>
-        <p class="text-sm leading-relaxed text-veenso-muted line-clamp-3">{{ $caseStudy->excerpt }}</p>
-
-        @if (!empty($caseStudy->stats))
-            <div class="mt-1 grid grid-cols-2 gap-3">
-                @foreach (array_slice($caseStudy->stats, 0, 2) as $stat)
-                    <div>
-                        <div class="font-display text-xl font-bold text-gradient-veenso">{{ $stat['value'] }}</div>
-                        <div class="text-xs text-veenso-muted">{{ $stat['label'] }}</div>
+@if ($isFeatured)
+    <a href="{{ route('case-studies.show', $caseStudy) }}" class="reveal card-veenso group grid overflow-hidden p-0 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]" data-reveal-delay="{{ $index * 80 }}">
+        <div class="case-study-card-media relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[17rem]">
+            @if ($imageUrl)
+                <img src="{{ $imageUrl }}" alt="{{ $caseStudy->title }}" class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy">
+            @else
+                <div class="media-fallback absolute inset-0 flex items-center justify-center">
+                    <x-icon name="target" class="relative z-10 h-10 w-10 text-veenso-accent-light/80" />
+                </div>
+            @endif
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-veenso-bg/70 via-transparent to-transparent lg:bg-gradient-to-r"></div>
+        </div>
+        <div class="flex flex-col justify-center gap-4 p-6 lg:p-8">
+            @if ($caseStudy->service_category)
+                <span class="tag-veenso self-start">{{ $caseStudy->service_category }}</span>
+            @endif
+            <h3 class="case-study-title text-xl transition-colors group-hover:text-veenso-accent-light lg:text-2xl">
+                {{ $caseStudy->title }}
+            </h3>
+            @if ($caseStudy->excerpt)
+                <p class="text-sm leading-relaxed text-veenso-muted line-clamp-3">{{ $caseStudy->excerpt }}</p>
+            @endif
+            @if (! empty($caseStudy->stats))
+                <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                    @foreach (array_slice($caseStudy->stats, 0, 4) as $stat)
+                        <div>
+                            <div class="case-study-metric text-lg sm:text-xl">{{ $stat['value'] }}</div>
+                            <div class="case-study-metric-label mt-1">{{ $stat['label'] }}</div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-veenso-accent-light">
+                Read the case study <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+        </div>
+    </a>
+@else
+    <a href="{{ route('case-studies.show', $caseStudy) }}" class="reveal card-veenso group flex h-full flex-col overflow-hidden p-0" data-reveal-delay="{{ $index * 70 }}">
+        <div class="case-study-card-media relative aspect-[16/10] overflow-hidden">
+            @if ($imageUrl)
+                <img src="{{ $imageUrl }}" alt="{{ $caseStudy->title }}" class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]" loading="lazy">
+            @else
+                <div class="media-fallback absolute inset-0 flex items-center justify-center">
+                    <x-icon name="target" class="relative z-10 h-8 w-8 text-veenso-accent-light/80" />
+                </div>
+            @endif
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-veenso-bg/80 to-transparent"></div>
+            @if ($primaryStat)
+                <div class="absolute bottom-3 left-3 right-3 z-10">
+                    <div class="inline-flex max-w-full items-baseline gap-2 rounded-lg border border-white/10 bg-veenso-bg/80 px-2.5 py-1.5 backdrop-blur-md">
+                        <span class="case-study-metric text-[0.95rem]">{{ $primaryStat['value'] }}</span>
+                        <span class="case-study-metric-label truncate">{{ $primaryStat['label'] }}</span>
                     </div>
-                @endforeach
-            </div>
-        @endif
+                </div>
+            @endif
+        </div>
 
-        <span class="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-veenso-accent-light">
-            Read the case study <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </span>
-    </div>
-</a>
+        <div class="flex flex-1 flex-col gap-2.5 p-5">
+            @if ($caseStudy->service_category)
+                <span class="tag-veenso self-start">{{ $caseStudy->service_category }}</span>
+            @endif
+            <h3 class="case-study-title text-[0.95rem] transition-colors line-clamp-2 group-hover:text-veenso-accent-light sm:text-base">
+                {{ $caseStudy->title }}
+            </h3>
+            @if ($caseStudy->excerpt)
+                <p class="text-sm leading-relaxed text-veenso-muted line-clamp-2">{{ $caseStudy->excerpt }}</p>
+            @endif
+            <span class="mt-auto inline-flex items-center gap-1.5 pt-1 text-sm font-semibold text-veenso-accent-light">
+                View results <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </span>
+        </div>
+    </a>
+@endif

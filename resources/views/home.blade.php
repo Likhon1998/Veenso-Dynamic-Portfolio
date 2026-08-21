@@ -149,7 +149,7 @@
                     :title="$copy['home_case_title']"
                     :subtitle="$copy['home_case_subtitle']"
                 />
-                <x-case-study-card :case-study="$featuredCaseStudy" />
+                <x-case-study-card :case-study="$featuredCaseStudy" variant="featured" />
             </div>
         </section>
     @endif

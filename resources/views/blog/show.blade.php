@@ -40,6 +40,26 @@
             <div class="container-veenso grid gap-8 lg:grid-cols-[1fr_280px]">
                 <div class="reveal prose-veenso max-w-none">
                     {!! $htmlContent !!}
+
+                    @if ($blogPost->images->isNotEmpty())
+                        <div class="not-prose mt-12 flex flex-col gap-8">
+                            @foreach ($blogPost->images as $index => $image)
+                                <figure class="flex flex-col gap-3">
+                                    <div class="overflow-hidden rounded-2xl border border-veenso-border bg-veenso-elevated/30">
+                                        <img
+                                            src="{{ media_url($image->path) }}"
+                                            alt="{{ $image->alt ?: $blogPost->title }}"
+                                            class="h-auto w-full object-contain"
+                                            loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                                        >
+                                    </div>
+                                    @if ($image->caption || $image->alt)
+                                        <figcaption class="text-sm text-veenso-muted">{{ $image->caption ?: $image->alt }}</figcaption>
+                                    @endif
+                                </figure>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
 
                 <aside class="reveal flex flex-col gap-6" data-reveal-delay="100">

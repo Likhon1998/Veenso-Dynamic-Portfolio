@@ -38,6 +38,8 @@ class BlogController extends Controller
     {
         abort_unless($blogPost->status === 'published', 404);
 
+        $blogPost->load('images');
+
         $relatedPosts = BlogPost::query()
             ->where('status', 'published')
             ->where('id', '!=', $blogPost->id)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CaseStudy;
+use App\Support\CaseStudyContent;
 use Illuminate\View\View;
 
 class CaseStudyController extends Controller
@@ -25,16 +26,28 @@ class CaseStudyController extends Controller
     {
         abort_unless($caseStudy->status === 'published', 404);
 
+        $caseStudy->load('images');
+
         $relatedCaseStudies = CaseStudy::query()
             ->where('status', 'published')
             ->where('id', '!=', $caseStudy->id)
             ->orderBy('sort_order')
-            ->take(2)
+            ->take(3)
             ->get();
+
+        $challenge = CaseStudyContent::parseChallenge($caseStudy->challenge);
+        $strategyCards = CaseStudyContent::parseStrategyCards($caseStudy->strategy);
+        $meta = CaseStudyContent::parseMetaFromExcerpt($caseStudy->excerpt);
+        $primaryStat = ! empty($caseStudy->stats) ? $caseStudy->stats[0] : null;
 
         return view('case-studies.show', [
             'caseStudy' => $caseStudy,
             'relatedCaseStudies' => $relatedCaseStudies,
+            'challengeIntro' => $challenge['intro'],
+            'challengeBlockers' => $challenge['blockers'],
+            'strategyCards' => $strategyCards,
+            'caseMeta' => $meta,
+            'primaryStat' => $primaryStat,
         ]);
     }
 }

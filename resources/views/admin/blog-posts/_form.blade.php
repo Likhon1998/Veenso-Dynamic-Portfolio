@@ -30,6 +30,7 @@
 
     <div class="form-group">
         <label for="content">Content</label>
+        <span class="hint">Markdown supported. Images you upload below appear under the article body.</span>
         <textarea id="content" name="content" class="form-control tall">{{ old('content', $item?->content) }}</textarea>
     </div>
 
@@ -60,6 +61,32 @@
         @if ($item?->featured_image)
             <div class="image-preview"><img src="{{ media_url($item->featured_image) }}" alt="Featured"></div>
         @endif
+    </div>
+
+    @if ($item && $item->images->isNotEmpty())
+        <div class="form-group">
+            <label>Article Images</label>
+            <span class="hint">Upload as many images as you want — they show on the public blog post.</span>
+            <div class="gallery-grid">
+                @foreach ($item->images as $image)
+                    <div class="gallery-item">
+                        <img src="{{ media_url($image->path) }}" alt="{{ $image->alt }}">
+                        <input type="text" name="image_alts[{{ $image->id }}]" class="form-control" value="{{ old('image_alts.'.$image->id, $image->alt) }}" placeholder="Alt text">
+                        <input type="text" name="image_captions[{{ $image->id }}]" class="form-control" value="{{ old('image_captions.'.$image->id, $image->caption) }}" placeholder="Caption (optional)">
+                        <label class="checkbox-row" style="margin-top:0.5rem;">
+                            <input type="checkbox" name="delete_image_ids[]" value="{{ $image->id }}">
+                            Delete
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    <div class="form-group">
+        <label for="gallery_images">Add Images</label>
+        <input type="file" id="gallery_images" name="gallery_images[]" class="form-control" accept="image/*" multiple>
+        <span class="hint">Select multiple images at once</span>
     </div>
 
     <div class="form-row">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class BlogPost extends Model
@@ -45,5 +46,10 @@ class BlogPost extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(BlogPostImage::class)->orderBy('sort_order');
     }
 }

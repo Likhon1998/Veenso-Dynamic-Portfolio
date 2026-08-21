@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class CaseStudy extends Model
@@ -50,5 +51,10 @@ class CaseStudy extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(CaseStudyImage::class)->orderBy('sort_order');
     }
 }

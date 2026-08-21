@@ -84,8 +84,8 @@
         <div class="glow-orb -left-32 -top-32 h-72 w-72 opacity-30"></div>
 
         <div class="container-veenso relative z-10 py-10 lg:py-12">
-            <div class="grid gap-8 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
-                <div class="flex flex-col gap-4">
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+                <div class="flex flex-col gap-4 sm:col-span-2 lg:col-span-1">
                     <a href="{{ route('home') }}" class="inline-flex items-center">
                         @if (!empty($siteSettings['brand_logo']))
                             <img src="{{ media_url($siteSettings['brand_logo']) }}" alt="{{ $siteSettings['site_name'] }}" class="h-8 w-auto max-w-[9.5rem] object-contain">
@@ -131,8 +131,16 @@
                     </ul>
                 </div>
 
+                <div class="flex flex-col gap-3">
+                    <h4 class="font-display text-xs font-semibold uppercase tracking-widest text-veenso-text">Privacy Policy</h4>
+                    <ul class="flex flex-col gap-2 text-sm text-veenso-muted">
+                        <li><a href="{{ route('privacy-policy') }}" class="transition-colors hover:text-veenso-accent-light">Privacy Policy</a></li>
+                        <li><a href="{{ route('terms') }}" class="transition-colors hover:text-veenso-accent-light">Terms of Service</a></li>
+                    </ul>
+                </div>
+
                 <div class="flex flex-col gap-4">
-                    <h4 class="font-display text-sm font-semibold uppercase tracking-widest text-veenso-text">Contact</h4>
+                    <h4 class="font-display text-xs font-semibold uppercase tracking-widest text-veenso-text">Contact</h4>
                     <ul class="flex flex-col gap-3 text-sm text-veenso-muted">
                         @if ($siteSettings['email'])
                             <li><a href="mailto:{{ $siteSettings['email'] }}" class="transition-colors hover:text-veenso-accent-light">{{ $siteSettings['email'] }}</a></li>

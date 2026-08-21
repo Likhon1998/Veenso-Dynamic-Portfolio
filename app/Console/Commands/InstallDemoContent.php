@@ -16,6 +16,7 @@ use App\Models\Testimonial;
 use App\Models\WhyChooseItem;
 use App\Support\AiSearchServiceContent;
 use App\Support\BrandingServiceContent;
+use App\Support\GoogleMetaAdsServiceContent;
 use App\Support\SeoServiceContent;
 use App\Support\SocialMediaServiceContent;
 use App\Support\WebsiteDesignServiceContent;
@@ -394,6 +395,8 @@ SVG;
             ?? $this->makeSvgImage('uploads/services/ai-search-optimization.svg', 'AI Search', '#6366F1', '#4338CA');
         $socialImage = $this->installDemoAsset('social-media-service-hero.png', 'uploads/services/social-media-service-hero.png')
             ?? $this->makeSvgImage('uploads/services/social-media-marketing.svg', 'Social Media', '#F43F5E', '#BE123C');
+        $adsImage = $this->installDemoAsset('google-meta-ads-service-hero.png', 'uploads/services/google-meta-ads-service-hero.png')
+            ?? $this->makeSvgImage('uploads/services/google-meta-ads.svg', 'Ads', '#F59E0B', '#B45309');
 
         $services = [
             SeoServiceContent::payload($seoImage),
@@ -401,6 +404,7 @@ SVG;
             BrandingServiceContent::payload($brandImage),
             AiSearchServiceContent::payload($aiImage),
             SocialMediaServiceContent::payload($socialImage),
+            GoogleMetaAdsServiceContent::payload($adsImage),
         ];
 
         $keepSlugs = [];

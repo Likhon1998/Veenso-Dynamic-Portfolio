@@ -50,13 +50,15 @@
                         Services
                         <svg class="h-3.5 w-3.5 opacity-70" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
                     </button>
-                    <div class="nav-dropdown-panel absolute left-0 top-full z-50 mt-3 hidden min-w-[16rem] rounded-xl border border-veenso-border bg-veenso-charcoal/95 p-2 shadow-xl backdrop-blur" data-nav-dropdown-panel>
-                        <a href="{{ route('services.index') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-veenso-muted transition-colors hover:bg-veenso-elevated hover:text-veenso-text">All Services</a>
-                        @foreach ($navServices ?? [] as $navService)
-                            <a href="{{ route('services.show', $navService) }}" class="block rounded-lg px-3 py-2 text-sm text-veenso-muted transition-colors hover:bg-veenso-elevated hover:text-veenso-text @if(request()->routeIs('services.show') && request()->route('service')?->slug === $navService->slug) text-veenso-accent-light @endif">
-                                {{ $navService->title }}
-                            </a>
-                        @endforeach
+                    <div class="nav-dropdown-panel absolute left-0 top-full z-50 hidden min-w-[17rem] pt-2" data-nav-dropdown-panel>
+                        <div class="rounded-xl border border-veenso-border bg-veenso-charcoal/95 p-2 shadow-xl backdrop-blur">
+                            <a href="{{ route('services.index') }}" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-veenso-muted transition-colors hover:bg-veenso-elevated hover:text-veenso-text">All Services</a>
+                            @foreach ($navServices ?? [] as $navService)
+                                <a href="{{ route('services.show', $navService) }}" class="block rounded-lg px-3 py-2.5 text-sm text-veenso-muted transition-colors hover:bg-veenso-elevated hover:text-veenso-text @if(request()->routeIs('services.show') && optional(request()->route('service'))->is($navService)) text-veenso-accent-light @endif">
+                                    {{ $navService->title }}
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 

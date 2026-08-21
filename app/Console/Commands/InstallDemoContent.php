@@ -15,6 +15,7 @@ use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\WhyChooseItem;
 use App\Support\SeoServiceContent;
+use App\Support\WebsiteDesignServiceContent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -373,13 +374,24 @@ SVG;
     private function importServices(): void
     {
         $seoImage = $this->makeSvgImage('uploads/services/seo.svg', 'SEO', '#8B5CF6', '#6D28D9');
-        $payload = SeoServiceContent::payload($seoImage);
+        $webImage = $this->makeSvgImage('uploads/services/website-design-development.svg', 'Web Design', '#10B981', '#047857');
 
-        Service::query()->updateOrCreate(['slug' => 'seo'], $payload);
+        $services = [
+            SeoServiceContent::payload($seoImage),
+            WebsiteDesignServiceContent::payload($webImage),
+        ];
 
-        // Keep only the SEO service as the live demo offering.
-        Service::query()->where('slug', '!=', 'seo')->delete();
+        $keepSlugs = [];
+
+        foreach ($services as $payload) {
+            Service::query()->updateOrCreate(['slug' => $payload['slug']], $payload);
+            $keepSlugs[] = $payload['slug'];
+        }
+
+        // Keep only the seeded live service offerings.
+        Service::query()->whereNotIn('slug', $keepSlugs)->delete();
     }
+
     private function importPortfolio(): void
     {
         $img1 = $this->makeSvgImage('uploads/portfolio/meridian-1.svg', 'Meridian Health', '#0F766E', '#134E4A');

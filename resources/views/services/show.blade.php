@@ -434,7 +434,7 @@
         <div class="container-veenso">
             <div class="reveal relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-veenso-accent via-veenso-accent-dark to-[#4c1d95] px-5 py-10 text-center sm:rounded-[1.75rem] sm:px-8 sm:py-14">
                 <div class="relative z-10 flex flex-col items-center gap-4">
-                    <h2 class="max-w-xl font-display text-2xl font-bold text-white sm:text-3xl">Ready to stop losing customers to Google?</h2>
+                    <h2 class="max-w-xl font-display text-2xl font-bold text-white sm:text-3xl">Ready for results with {{ $service->title }}?</h2>
                     <div class="flex w-full max-w-xl flex-col gap-3 sm:flex-row sm:justify-center">
                         <a href="{{ $primaryCta }}" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-veenso-accent-dark transition hover:bg-white/90">
                             {{ $service->cta_text ?: 'Book Your Free Growth Strategy Session' }} →

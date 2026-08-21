@@ -59,9 +59,13 @@
 
     <div class="form-group">
         <label for="featured_image">Featured Image</label>
+        <span class="hint">Used on the service hero and related service cards. Upload JPG/PNG/WebP.</span>
         <input type="file" id="featured_image" name="featured_image" class="form-control" accept="image/*">
         @if ($item?->featured_image)
-            <div class="image-preview"><img src="{{ media_url($item->featured_image) }}" alt="Featured"></div>
+            <div class="image-preview mt-2">
+                <img src="{{ media_url($item->featured_image) }}" alt="Featured" class="max-h-40 rounded-lg object-cover">
+                <p class="hint mt-1">Current: {{ $item->featured_image }}</p>
+            </div>
         @endif
     </div>
 

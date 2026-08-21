@@ -1,18 +1,23 @@
 @props(['service', 'index' => 0])
 
 @php
-    $imageUrl = media_url($service->featured_image);
-    $hasFile = false;
-    if ($service->featured_image) {
-        $path = ltrim(str_replace('storage/', '', $service->featured_image), '/');
-        $hasFile = \Illuminate\Support\Facades\Storage::disk('public')->exists($path)
-            || file_exists(public_path('storage/'.$path));
+    $imageUrl = null;
+    $src = $service->featured_image;
+    if ($src) {
+        if (str_starts_with($src, 'http://') || str_starts_with($src, 'https://')) {
+            $imageUrl = $src;
+        } else {
+            $path = ltrim(str_replace('storage/', '', $src), '/');
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path) || file_exists(public_path('storage/'.$path))) {
+                $imageUrl = media_url($path);
+            }
+        }
     }
 @endphp
 
 <a href="{{ route('services.show', $service) }}" class="reveal group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-veenso-border bg-veenso-elevated/50 transition duration-300 hover:-translate-y-1 hover:border-veenso-accent/45 hover:shadow-[0_22px_44px_-28px_rgba(139,92,246,0.5)]" data-reveal-delay="{{ $index * 70 }}">
     <div class="relative aspect-[16/10] overflow-hidden bg-veenso-charcoal">
-        @if ($hasFile && $imageUrl)
+        @if ($imageUrl)
             <img
                 src="{{ $imageUrl }}"
                 alt="{{ $service->title }}"
@@ -28,7 +33,7 @@
             </div>
         @endif
 
-        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-veenso-bg via-veenso-bg/25 to-transparent"></div>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-veenso-bg via-veenso-bg/20 to-transparent"></div>
         <span class="absolute left-3 top-3 z-10 inline-flex rounded-full border border-white/15 bg-veenso-bg/75 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-veenso-accent-light backdrop-blur">
             Service
         </span>

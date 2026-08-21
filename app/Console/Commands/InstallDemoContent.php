@@ -381,8 +381,10 @@ SVG;
 
     private function importServices(): void
     {
-        $seoImage = $this->makeSvgImage('uploads/services/seo.svg', 'SEO', '#8B5CF6', '#6D28D9');
-        $webImage = $this->makeSvgImage('uploads/services/website-design-development.svg', 'Web Design', '#10B981', '#047857');
+        $seoImage = $this->installDemoAsset('seo-service-hero.png', 'uploads/services/seo-service-hero.png')
+            ?? $this->makeSvgImage('uploads/services/seo.svg', 'SEO', '#8B5CF6', '#6D28D9');
+        $webImage = $this->installDemoAsset('web-service-hero.png', 'uploads/services/web-service-hero.png')
+            ?? $this->makeSvgImage('uploads/services/website-design-development.svg', 'Web Design', '#10B981', '#047857');
 
         $services = [
             SeoServiceContent::payload($seoImage),

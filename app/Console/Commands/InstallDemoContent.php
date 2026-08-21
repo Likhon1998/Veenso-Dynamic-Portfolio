@@ -14,6 +14,7 @@ use App\Models\SiteSetting;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\WhyChooseItem;
+use App\Support\BrandingServiceContent;
 use App\Support\SeoServiceContent;
 use App\Support\WebsiteDesignServiceContent;
 use Illuminate\Console\Command;
@@ -385,10 +386,13 @@ SVG;
             ?? $this->makeSvgImage('uploads/services/seo.svg', 'SEO', '#8B5CF6', '#6D28D9');
         $webImage = $this->installDemoAsset('web-service-hero.png', 'uploads/services/web-service-hero.png')
             ?? $this->makeSvgImage('uploads/services/website-design-development.svg', 'Web Design', '#10B981', '#047857');
+        $brandImage = $this->installDemoAsset('branding-service-hero.png', 'uploads/services/branding-service-hero.png')
+            ?? $this->makeSvgImage('uploads/services/branding.svg', 'Branding', '#EC4899', '#BE185D');
 
         $services = [
             SeoServiceContent::payload($seoImage),
             WebsiteDesignServiceContent::payload($webImage),
+            BrandingServiceContent::payload($brandImage),
         ];
 
         $keepSlugs = [];

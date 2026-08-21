@@ -44,7 +44,22 @@
             <nav class="hidden items-center gap-6 lg:flex">
                 <a href="{{ route('home') }}" class="nav-link @if(request()->routeIs('home')) is-active @endif">Home</a>
                 <a href="{{ route('about') }}" class="nav-link @if(request()->routeIs('about')) is-active @endif">About</a>
-                <a href="{{ route('services.index') }}" class="nav-link @if(request()->routeIs('services.*')) is-active @endif">Services</a>
+
+                <div class="nav-dropdown relative" data-nav-dropdown>
+                    <button type="button" class="nav-link inline-flex items-center gap-1 @if(request()->routeIs('services.*')) is-active @endif" data-nav-dropdown-trigger aria-expanded="false" aria-haspopup="true">
+                        Services
+                        <svg class="h-3.5 w-3.5 opacity-70" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+                    </button>
+                    <div class="nav-dropdown-panel absolute left-0 top-full z-50 mt-3 hidden min-w-[16rem] rounded-xl border border-veenso-border bg-veenso-charcoal/95 p-2 shadow-xl backdrop-blur" data-nav-dropdown-panel>
+                        <a href="{{ route('services.index') }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-veenso-muted transition-colors hover:bg-veenso-elevated hover:text-veenso-text">All Services</a>
+                        @foreach ($navServices ?? [] as $navService)
+                            <a href="{{ route('services.show', $navService) }}" class="block rounded-lg px-3 py-2 text-sm text-veenso-muted transition-colors hover:bg-veenso-elevated hover:text-veenso-text @if(request()->routeIs('services.show') && request()->route('service')?->slug === $navService->slug) text-veenso-accent-light @endif">
+                                {{ $navService->title }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
                 <a href="{{ route('case-studies.index') }}" class="nav-link @if(request()->routeIs('case-studies.*')) is-active @endif">Case Study</a>
                 <a href="{{ route('portfolio.index') }}" class="nav-link @if(request()->routeIs('portfolio.*')) is-active @endif">Portfolio</a>
                 <a href="{{ route('blog.index') }}" class="nav-link @if(request()->routeIs('blog.*')) is-active @endif">Blog</a>
@@ -66,7 +81,20 @@
             <nav class="container-veenso flex flex-col gap-1 py-4">
                 <a href="{{ route('home') }}" class="nav-link py-2.5 @if(request()->routeIs('home')) is-active @endif">Home</a>
                 <a href="{{ route('about') }}" class="nav-link py-2.5 @if(request()->routeIs('about')) is-active @endif">About</a>
-                <a href="{{ route('services.index') }}" class="nav-link py-2.5 @if(request()->routeIs('services.*')) is-active @endif">Services</a>
+
+                <div class="py-1" data-mobile-services>
+                    <button type="button" class="nav-link flex w-full items-center justify-between py-2.5 @if(request()->routeIs('services.*')) is-active @endif" data-mobile-services-toggle aria-expanded="false">
+                        <span>Services</span>
+                        <svg class="h-4 w-4 opacity-70 transition-transform" data-mobile-services-chevron viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+                    </button>
+                    <div class="hidden flex flex-col gap-1 border-l border-veenso-border pl-3" data-mobile-services-panel>
+                        <a href="{{ route('services.index') }}" class="nav-link py-2 text-sm">All Services</a>
+                        @foreach ($navServices ?? [] as $navService)
+                            <a href="{{ route('services.show', $navService) }}" class="nav-link py-2 text-sm">{{ $navService->title }}</a>
+                        @endforeach
+                    </div>
+                </div>
+
                 <a href="{{ route('case-studies.index') }}" class="nav-link py-2.5 @if(request()->routeIs('case-studies.*')) is-active @endif">Case Study</a>
                 <a href="{{ route('portfolio.index') }}" class="nav-link py-2.5 @if(request()->routeIs('portfolio.*')) is-active @endif">Portfolio</a>
                 <a href="{{ route('blog.index') }}" class="nav-link py-2.5 @if(request()->routeIs('blog.*')) is-active @endif">Blog</a>

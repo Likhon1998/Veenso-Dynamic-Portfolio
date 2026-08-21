@@ -70,35 +70,64 @@ class ServiceController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255'],
             'summary' => ['nullable', 'string'],
+            'headline' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
             'icon' => ['nullable', 'string', 'max:255'],
             'who_for' => ['nullable', 'string'],
             'related_notes' => ['nullable', 'string'],
             'cta_text' => ['nullable', 'string', 'max:255'],
             'cta_url' => ['nullable', 'string', 'max:255'],
+            'secondary_cta_text' => ['nullable', 'string', 'max:255'],
+            'secondary_cta_url' => ['nullable', 'string', 'max:255'],
             'is_primary' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['required', 'in:draft,published'],
             'featured_image' => ['nullable', 'image', 'max:5120'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string'],
+            'hero_badges' => ['nullable', 'string'],
+            'key_stats' => ['nullable', 'string'],
+            'sub_services' => ['nullable', 'string'],
             'benefits' => ['nullable', 'string'],
+            'deliverables' => ['nullable', 'string'],
+            'gains' => ['nullable', 'string'],
             'process_steps' => ['nullable', 'string'],
             'tools' => ['nullable', 'string'],
             'faqs' => ['nullable', 'string'],
             'problems' => ['nullable', 'string'],
+            'problem_matrix' => ['nullable', 'string'],
             'ideal_clients' => ['nullable', 'string'],
+            'audiences' => ['nullable', 'string'],
             'why_choose' => ['nullable', 'string'],
+            'comparison' => ['nullable', 'string'],
+            'packages' => ['nullable', 'string'],
+            'metrics_table' => ['nullable', 'string'],
         ]);
 
         $validated['is_primary'] = $request->boolean('is_primary');
-        $validated['benefits'] = $this->jsonToArray($request->input('benefits'));
-        $validated['process_steps'] = $this->jsonToArray($request->input('process_steps'));
-        $validated['faqs'] = $this->jsonToArray($request->input('faqs'));
-        $validated['why_choose'] = $this->jsonToArray($request->input('why_choose'));
-        $validated['tools'] = $this->linesToArray($request->input('tools'));
-        $validated['problems'] = $this->linesToArray($request->input('problems'));
-        $validated['ideal_clients'] = $this->linesToArray($request->input('ideal_clients'));
+
+        $jsonFields = [
+            'key_stats',
+            'sub_services',
+            'benefits',
+            'process_steps',
+            'faqs',
+            'why_choose',
+            'problem_matrix',
+            'audiences',
+            'comparison',
+            'packages',
+            'metrics_table',
+        ];
+
+        foreach ($jsonFields as $field) {
+            $validated[$field] = $this->jsonToArray($request->input($field));
+        }
+
+        $lineFields = ['tools', 'problems', 'ideal_clients', 'hero_badges', 'deliverables', 'gains'];
+        foreach ($lineFields as $field) {
+            $validated[$field] = $this->linesToArray($request->input($field));
+        }
 
         unset($validated['featured_image']);
 

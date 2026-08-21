@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with([
+                'navServices' => Service::query()
+                    ->where('status', 'published')
+                    ->orderBy('sort_order')
+                    ->orderBy('title')
+                    ->get(['title', 'slug', 'is_primary']),
                 'footerServices' => Service::query()
                     ->where('status', 'published')
                     ->where('is_primary', true)

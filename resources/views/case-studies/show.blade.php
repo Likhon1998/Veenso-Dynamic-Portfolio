@@ -5,9 +5,9 @@
 
 @section('content')
 
-    <article>
+    <article class="case-study-page">
         {{-- Hero --}}
-        <section class="page-hero pb-6 sm:pb-8 lg:pb-10">
+        <section class="page-hero pb-8 lg:pb-12">
             <div class="pointer-events-none absolute inset-0">
                 <div class="glow-orb left-[-10%] top-[-12rem] h-[28rem] w-[28rem] opacity-35"></div>
                 <div class="glow-orb right-[-8%] top-[20%] h-[22rem] w-[22rem] opacity-25"></div>
@@ -18,8 +18,8 @@
                     <x-icon name="arrow-right" class="h-4 w-4 rotate-180" /> All Case Studies
                 </a>
 
-                <div class="reveal grid min-w-0 items-center gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12" data-reveal-delay="50">
-                    <div class="order-2 flex min-w-0 flex-col gap-4 sm:gap-5 lg:order-1">
+                <div class="reveal case-study-hero-grid" data-reveal-delay="50">
+                    <div class="case-study-hero-copy">
                         <div class="flex flex-wrap gap-2">
                             @if ($caseStudy->service_category)
                                 <span class="tag-veenso">{{ $caseStudy->service_category }}</span>
@@ -44,7 +44,7 @@
                         @endif
 
                         @if (! empty($caseStudy->stats))
-                            <div class="case-study-stat-grid mt-1">
+                            <div class="case-study-stat-grid">
                                 @foreach ($caseStudy->stats as $stat)
                                     <div class="case-study-stat-chip">
                                         <div class="case-study-metric text-base sm:text-xl">{{ $stat['value'] }}</div>
@@ -55,7 +55,7 @@
                         @endif
                     </div>
 
-                    <div class="relative order-1 min-w-0 lg:order-2">
+                    <div class="case-study-hero-visual">
                         <div class="case-study-hero-media overflow-hidden rounded-xl border border-veenso-border sm:rounded-2xl">
                             @if ($caseStudy->featured_image)
                                 <img
@@ -72,11 +72,9 @@
                         </div>
 
                         @if ($primaryStat)
-                            <div class="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-auto">
-                                <div class="inline-flex w-full max-w-full flex-col gap-1 rounded-xl border border-white/15 bg-veenso-bg/85 px-3.5 py-2.5 shadow-lg backdrop-blur-md sm:w-auto sm:min-w-[12rem] sm:px-4 sm:py-3">
-                                    <div class="case-study-metric text-lg text-emerald-300 sm:text-2xl">{{ $primaryStat['value'] }}</div>
-                                    <div class="case-study-metric-label">{{ $primaryStat['label'] }}</div>
-                                </div>
+                            <div class="case-study-hero-badge">
+                                <div class="case-study-metric text-lg text-emerald-300 sm:text-2xl">{{ $primaryStat['value'] }}</div>
+                                <div class="case-study-metric-label">{{ $primaryStat['label'] }}</div>
                             </div>
                         @endif
                     </div>
@@ -87,16 +85,16 @@
         {{-- Challenge --}}
         @if ($challengeIntro || count($challengeBlockers))
             <section class="section-y pt-0">
-                <div class="container-veenso grid min-w-0 gap-6 sm:gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
+                <div class="container-veenso case-study-split">
                     <div class="reveal flex min-w-0 flex-col gap-3 sm:gap-4">
                         <span class="eyebrow">The Challenge</span>
                         @if ($challengeIntro)
-                            <div class="case-study-prose">{{ $challengeIntro }}</div>
+                            <div class="case-study-prose max-w-xl">{{ $challengeIntro }}</div>
                         @endif
                     </div>
 
                     @if (count($challengeBlockers))
-                        <div class="reveal min-w-0 rounded-2xl border border-veenso-accent/25 bg-gradient-to-br from-veenso-accent/15 via-veenso-elevated to-veenso-charcoal p-5 sm:p-7" data-reveal-delay="80">
+                        <div class="reveal case-study-panel" data-reveal-delay="80">
                             <h2 class="case-study-title mb-4 text-lg sm:text-xl">The blockers we uncovered</h2>
                             <ul class="flex flex-col gap-3">
                                 @foreach ($challengeBlockers as $blocker)
@@ -123,7 +121,7 @@
                         <h2 class="case-study-title text-xl sm:text-[1.75rem]">How we built compounding growth</h2>
                     </div>
 
-                    <div class="grid min-w-0 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
+                    <div class="case-study-strategy-grid">
                         @foreach ($strategyCards as $index => $card)
                             <div class="reveal card-veenso flex min-w-0 flex-col gap-3 p-4 sm:p-5" data-reveal-delay="{{ $index * 70 }}">
                                 <div class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-veenso-accent/15 text-veenso-accent-light">
@@ -149,7 +147,7 @@
                         <h2 class="case-study-title text-xl sm:text-[1.75rem]">What the data showed</h2>
                     </div>
 
-                    <div class="grid min-w-0 gap-6 sm:gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start">
+                    <div class="case-study-results-grid">
                         @if (! empty($caseStudy->stats))
                             <div class="reveal flex min-w-0 flex-col gap-3">
                                 @foreach ($caseStudy->stats as $index => $stat)
@@ -168,11 +166,11 @@
 
                         <div class="reveal flex min-w-0 flex-col gap-4" data-reveal-delay="80">
                             @if ($caseStudy->results)
-                                <div class="case-study-prose">{{ $caseStudy->results }}</div>
+                                <div class="case-study-prose max-w-2xl">{{ $caseStudy->results }}</div>
                             @endif
 
                             @if ($caseStudy->images->isNotEmpty())
-                                <div class="case-study-shot mt-1 sm:mt-2">
+                                <div class="case-study-shot">
                                     <div class="case-study-shot__chrome" aria-hidden="true">
                                         <span></span><span></span><span></span>
                                     </div>
@@ -195,15 +193,15 @@
         @if ($caseStudy->images->isNotEmpty())
             <section class="section-y bg-veenso-charcoal/35">
                 <div class="container-veenso flex flex-col gap-6 sm:gap-8">
-                    <div class="reveal flex flex-col gap-2 text-center">
-                        <span class="eyebrow">Search Console Proof</span>
+                    <div class="reveal mx-auto flex max-w-2xl flex-col gap-2 text-center">
+                        <span class="eyebrow justify-center">Search Console Proof</span>
                         <h2 class="case-study-title text-xl sm:text-[1.75rem]">Evidence from Google Search Console</h2>
                     </div>
 
-                    <div class="grid min-w-0 gap-5 sm:gap-6 lg:grid-cols-2">
+                    <div class="case-study-evidence-grid">
                         @foreach ($caseStudy->images as $index => $image)
-                            <figure class="reveal flex min-w-0 flex-col gap-3" data-reveal-delay="{{ $index * 80 }}">
-                                <div class="case-study-shot">
+                            <figure class="reveal case-study-evidence-item" data-reveal-delay="{{ $index * 80 }}">
+                                <div class="case-study-shot case-study-shot--equal">
                                     <div class="case-study-shot__chrome" aria-hidden="true">
                                         <span></span><span></span><span></span>
                                     </div>
@@ -216,7 +214,7 @@
                                     </div>
                                 </div>
                                 @if ($image->caption || $image->alt)
-                                    <figcaption class="px-1 text-center text-xs text-veenso-muted sm:text-sm">{{ $image->caption ?: $image->alt }}</figcaption>
+                                    <figcaption>{{ $image->caption ?: $image->alt }}</figcaption>
                                 @endif
                             </figure>
                         @endforeach
@@ -228,12 +226,14 @@
         {{-- Why this worked --}}
         @if ($caseStudy->implementation)
             <section class="section-y">
-                <div class="container-veenso mx-auto flex max-w-3xl flex-col gap-4">
-                    <div class="reveal flex flex-col gap-2">
-                        <span class="eyebrow">Why This Worked</span>
-                        <h2 class="case-study-title text-xl sm:text-[1.75rem]">The compounding system</h2>
+                <div class="container-veenso">
+                    <div class="case-study-narrow reveal flex flex-col gap-4">
+                        <div class="flex flex-col gap-2">
+                            <span class="eyebrow">Why This Worked</span>
+                            <h2 class="case-study-title text-xl sm:text-[1.75rem]">The compounding system</h2>
+                        </div>
+                        <div class="case-study-prose" data-reveal-delay="60">{{ $caseStudy->implementation }}</div>
                     </div>
-                    <div class="reveal case-study-prose" data-reveal-delay="60">{{ $caseStudy->implementation }}</div>
                 </div>
             </section>
         @endif

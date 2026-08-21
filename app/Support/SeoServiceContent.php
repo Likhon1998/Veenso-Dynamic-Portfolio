@@ -119,7 +119,7 @@ class SeoServiceContent
                 ['question' => 'Will I get reports I can actually understand?', 'answer' => 'Yes — monthly reports are written in plain language covering traffic, rankings, and what we\'re doing next, not just raw data exports.'],
                 ['question' => 'What if my site was penalized before?', 'answer' => 'We start with a full technical and backlink audit to identify and fix any past issues before building forward.'],
             ],
-            'related_notes' => 'Related services often paired with SEO: AI Search Optimization (AEO/GEO), Google & Meta Ads, and Website Design & Development.',
+            'related_notes' => null,
             'cta_text' => 'Book Your Free Growth Strategy Session',
             'cta_url' => '/contact',
             'secondary_cta_text' => 'Schedule a Revenue Growth Consultation',

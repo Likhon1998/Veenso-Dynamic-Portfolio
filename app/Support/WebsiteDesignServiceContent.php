@@ -117,7 +117,7 @@ class WebsiteDesignServiceContent
                 ['question' => 'Is SEO included in the website build?', 'answer' => 'Basic on-page SEO structure is included in every build; ongoing SEO campaigns are a separate, dedicated service.'],
                 ['question' => 'What if I need changes after launch?', 'answer' => 'Support & maintenance plans are available for ongoing edits, updates, and security monitoring.'],
             ],
-            'related_notes' => 'Related services often paired with Website Design & Development: SEO, Branding & Graphic Design, and Product Visuals (Photography & 3D Rendering).',
+            'related_notes' => null,
             'cta_text' => 'Book Your Free Website Growth Session',
             'cta_url' => '/contact',
             'secondary_cta_text' => 'Schedule a Revenue Growth Consultation',

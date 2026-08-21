@@ -34,6 +34,7 @@ class ServiceController extends Controller
             'relatedServices' => Service::query()
                 ->where('status', 'published')
                 ->where('id', '!=', $service->id)
+                ->orderByDesc('is_primary')
                 ->orderBy('sort_order')
                 ->take(3)
                 ->get(),

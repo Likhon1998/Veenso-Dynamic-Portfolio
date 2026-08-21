@@ -54,7 +54,26 @@
             </div>
 
             <div class="reveal order-1 min-w-0 lg:order-2" data-reveal-delay="80">
-                <x-media :src="$service->featured_image" :alt="$service->title" :title="$service->title" :icon-name="$service->icon ?: 'sparkles'" ratio="aspect-[4/3]" />
+                @php
+                    $heroUrl = media_url($service->featured_image);
+                    $heroPath = ltrim(str_replace('storage/', '', (string) $service->featured_image), '/');
+                    $heroExists = $heroPath !== '' && (
+                        \Illuminate\Support\Facades\Storage::disk('public')->exists($heroPath)
+                        || file_exists(public_path('storage/'.$heroPath))
+                    );
+                @endphp
+                @if ($heroExists && $heroUrl)
+                    <div class="aspect-[4/3] overflow-hidden rounded-2xl border border-veenso-border bg-veenso-elevated">
+                        <img src="{{ $heroUrl }}" alt="{{ $service->title }}" class="h-full w-full object-cover" loading="eager">
+                    </div>
+                @else
+                    <div class="media-fallback relative flex aspect-[4/3] flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl p-6 text-center">
+                        <div class="media-fallback-grid absolute inset-0"></div>
+                        <div class="glow-orb h-40 w-40 opacity-70"></div>
+                        <x-icon :name="$service->icon ?: 'sparkles'" class="relative z-10 h-10 w-10 text-veenso-accent-light" />
+                        <p class="relative z-10 max-w-xs font-sans text-base font-semibold text-veenso-text">{{ $service->title }}</p>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
@@ -406,21 +425,14 @@
         </section>
     @endif
 
-    @if ($service->related_notes)
-        <section class="section-y pt-0">
-            <div class="container-veenso">
-                <div class="reveal rounded-2xl border border-veenso-border bg-veenso-elevated/40 p-6">
-                    <span class="eyebrow">Related Services</span>
-                    <p class="mt-3 text-sm leading-relaxed text-veenso-muted">{{ $service->related_notes }}</p>
-                </div>
-            </div>
-        </section>
-    @endif
-
+    {{-- Related service buttons (always image cards when other services exist) --}}
     @if ($relatedServices->isNotEmpty())
         <section class="section-y bg-veenso-charcoal/40">
             <div class="container-veenso flex flex-col gap-6 sm:gap-8">
-                <x-section-heading eyebrow="Related Services" title="Explore more ways we can help" />
+                <div class="reveal flex flex-col gap-2">
+                    <span class="eyebrow">Related Services</span>
+                    <h2 class="font-display text-2xl font-bold tracking-tight text-veenso-text sm:text-3xl">Explore more ways we can help</h2>
+                </div>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
                     @foreach ($relatedServices as $index => $related)
                         <x-service-card :service="$related" :index="$index" />

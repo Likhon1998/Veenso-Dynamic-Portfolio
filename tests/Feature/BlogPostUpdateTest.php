@@ -53,13 +53,40 @@ class BlogPostUpdateTest extends TestCase
         ]);
     }
 
+    public function test_admin_can_update_blog_post_via_dedicated_post_route(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+        $post = $this->makePost(['slug' => 'save-via-post']);
+
+        $response = $this->actingAs($admin)->post(route('admin.blog-posts.save', $post), [
+            'title' => 'Saved Via Post',
+            'slug' => 'saved-via-post',
+            'excerpt' => 'Excerpt',
+            'content' => "## Heading\n\nBody text.",
+            'author' => 'Editor',
+            'category' => 'SEO',
+            'status' => 'published',
+            'meta_title' => 'Meta',
+            'meta_description' => 'Desc',
+            'tags' => 'growth',
+        ]);
+
+        $response->assertRedirect(route('admin.blog-posts.index'));
+        $this->assertDatabaseHas('blog_posts', [
+            'id' => $post->id,
+            'title' => 'Saved Via Post',
+            'slug' => 'saved-via-post',
+        ]);
+        $this->assertStringEndsWith('/admin/blog-posts/'.$post->id.'/update', route('admin.blog-posts.save', $post));
+    }
+
     public function test_admin_can_update_blog_post_with_empty_optional_fields(): void
     {
         $admin = User::factory()->create(['is_admin' => true]);
         $post = $this->makePost();
 
-        $response = $this->actingAs($admin)->from(route('admin.blog-posts.edit', $post))->put(
-            route('admin.blog-posts.update', $post),
+        $response = $this->actingAs($admin)->from(route('admin.blog-posts.edit', $post))->post(
+            route('admin.blog-posts.save', $post),
             [
                 'title' => 'Still Valid',
                 'slug' => '',
@@ -84,5 +111,22 @@ class BlogPostUpdateTest extends TestCase
             'meta_description' => '',
             'status' => 'draft',
         ]);
+    }
+
+    public function test_public_blog_show_renders_published_post(): void
+    {
+        $post = $this->makePost([
+            'slug' => 'public-show-post',
+            'content' => "## Hello\n\nThis is a **test** article.",
+            'category' => 'Growth',
+            'tags' => ['seo', 'web'],
+        ]);
+
+        $response = $this->get(route('blog.show', $post));
+
+        $response->assertOk();
+        $response->assertSee('Original Title', false);
+        $response->assertSee('Hello', false);
+        $response->assertSee('Growth', false);
     }
 }

@@ -25,7 +25,7 @@
     <section class="section-y pt-0">
         <div class="container-veenso flex flex-col gap-10">
             @if ($categories->isNotEmpty())
-                <div class="reveal flex flex-wrap justify-center gap-3">
+                <div class="reveal flex flex-wrap justify-center gap-2 sm:gap-3">
                     <a href="{{ route('blog.index') }}" class="tag-veenso {{ !$activeCategory ? '!bg-veenso-accent/25' : '' }}">All</a>
                     @foreach ($categories as $category)
                         <a href="{{ route('blog.index', ['category' => $category]) }}" class="tag-veenso {{ $activeCategory === $category ? '!bg-veenso-accent/25' : '' }}">{{ $category }}</a>
@@ -33,7 +33,7 @@
                 </div>
             @endif
 
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid min-w-0 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
                 @foreach ($blogPosts as $index => $post)
                     <x-blog-card :post="$post" :index="$index" />
                 @endforeach

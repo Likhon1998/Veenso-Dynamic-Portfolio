@@ -59,20 +59,31 @@ class BlogPostController extends Controller
 
     public function update(Request $request, BlogPost $blogPost): RedirectResponse
     {
-        $validated = $this->validateBlogPost($request, $blogPost);
+        try {
+            $validated = $this->validateBlogPost($request, $blogPost);
 
-        if ($request->hasFile('featured_image')) {
-            $validated['featured_image'] = $this->storeUploadedImage($request->file('featured_image'), 'blog');
+            if ($request->hasFile('featured_image')) {
+                $validated['featured_image'] = $this->storeUploadedImage($request->file('featured_image'), 'blog');
+            }
+
+            $blogPost->update($validated);
+            $this->syncRelatedGalleryImages(
+                $request,
+                $blogPost,
+                BlogPostImage::class,
+                'blog_post_id',
+                'blog/gallery'
+            );
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            report($e);
+
+            return redirect()
+                ->route('admin.blog-posts.edit', $blogPost)
+                ->withInput()
+                ->with('error', 'Could not update blog post: '.$e->getMessage());
         }
-
-        $blogPost->update($validated);
-        $this->syncRelatedGalleryImages(
-            $request,
-            $blogPost,
-            BlogPostImage::class,
-            'blog_post_id',
-            'blog/gallery'
-        );
 
         return redirect()->route('admin.blog-posts.index')->with('success', 'Blog post updated successfully.');
     }

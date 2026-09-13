@@ -22,6 +22,8 @@ class BlogController extends Controller
 
         $categories = BlogPost::query()
             ->where('status', 'published')
+            ->whereNotNull('category')
+            ->where('category', '!=', '')
             ->pluck('category')
             ->unique()
             ->values();

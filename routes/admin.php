@@ -31,6 +31,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('case-studies', CaseStudyController::class)->except(['show']);
         Route::post('blog-posts/{blogPost:id}/delete', [BlogPostController::class, 'destroy'])
             ->name('blog-posts.delete');
+        Route::post('blog-posts/{blogPost:id}/update', [BlogPostController::class, 'update'])
+            ->name('blog-posts.save');
         Route::resource('blog-posts', BlogPostController::class)->except(['show']);
         Route::resource('testimonials', TestimonialController::class)->except(['show']);
         Route::resource('faqs', FaqController::class)->except(['show']);

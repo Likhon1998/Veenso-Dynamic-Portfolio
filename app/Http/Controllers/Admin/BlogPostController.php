@@ -79,9 +79,17 @@ class BlogPostController extends Controller
 
     public function destroy(BlogPost $blogPost): RedirectResponse
     {
-        // Delete gallery rows without the relationship ORDER BY (breaks on PostgreSQL).
-        BlogPostImage::query()->where('blog_post_id', $blogPost->id)->delete();
-        $blogPost->delete();
+        try {
+            // Delete gallery rows without the relationship ORDER BY (breaks on PostgreSQL).
+            BlogPostImage::query()->where('blog_post_id', $blogPost->id)->delete();
+            $blogPost->delete();
+        } catch (\Throwable $e) {
+            report($e);
+
+            return redirect()
+                ->route('admin.blog-posts.index')
+                ->with('error', 'Could not delete blog post: '.$e->getMessage());
+        }
 
         return redirect()->route('admin.blog-posts.index')->with('success', 'Blog post deleted successfully.');
     }

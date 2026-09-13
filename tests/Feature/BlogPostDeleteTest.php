@@ -54,6 +54,20 @@ class BlogPostDeleteTest extends TestCase
         $this->assertDatabaseMissing('blog_posts', ['id' => $post->id]);
     }
 
+    public function test_admin_can_delete_blog_post_via_dedicated_post_route(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+        $post = $this->makePost(['slug' => 'delete-via-post-route']);
+
+        $response = $this->actingAs($admin)->from(route('admin.blog-posts.index'))->post(
+            route('admin.blog-posts.delete', $post)
+        );
+
+        $response->assertRedirect(route('admin.blog-posts.index'));
+        $this->assertDatabaseMissing('blog_posts', ['id' => $post->id]);
+        $this->assertStringEndsWith('/admin/blog-posts/'.$post->id.'/delete', route('admin.blog-posts.delete', $post));
+    }
+
     public function test_admin_can_delete_blog_post_with_gallery_images(): void
     {
         $admin = User::factory()->create(['is_admin' => true]);
@@ -67,7 +81,7 @@ class BlogPostDeleteTest extends TestCase
             'sort_order' => 1,
         ]);
 
-        $response = $this->actingAs($admin)->delete(route('admin.blog-posts.destroy', $post));
+        $response = $this->actingAs($admin)->post(route('admin.blog-posts.delete', $post));
 
         $response->assertRedirect(route('admin.blog-posts.index'));
         $this->assertDatabaseMissing('blog_posts', ['id' => $post->id]);

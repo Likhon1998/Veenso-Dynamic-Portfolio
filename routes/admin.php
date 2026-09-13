@@ -29,6 +29,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('services', ServiceController::class)->except(['show']);
         Route::resource('portfolio-items', PortfolioItemController::class)->except(['show']);
         Route::resource('case-studies', CaseStudyController::class)->except(['show']);
+        Route::post('blog-posts/{blogPost:id}/delete', [BlogPostController::class, 'destroy'])
+            ->name('blog-posts.delete');
         Route::resource('blog-posts', BlogPostController::class)->except(['show']);
         Route::resource('testimonials', TestimonialController::class)->except(['show']);
         Route::resource('faqs', FaqController::class)->except(['show']);

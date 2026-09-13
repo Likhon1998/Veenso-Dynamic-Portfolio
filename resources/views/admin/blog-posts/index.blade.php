@@ -21,9 +21,8 @@
                         <td>{{ $post->published_at?->format('M j, Y') ?? '—' }}</td>
                         <td class="table-actions">
                             <a href="{{ route('admin.blog-posts.edit', $post) }}" class="btn btn-secondary btn-sm">Edit</a>
-                            <form action="{{ route('admin.blog-posts.destroy', $post) }}" method="POST">
+                            <form action="{{ route('admin.blog-posts.delete', $post) }}" method="POST" style="display:inline;margin:0;">
                                 @csrf
-                                @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>

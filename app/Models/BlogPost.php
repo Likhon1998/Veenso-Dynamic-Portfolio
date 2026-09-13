@@ -36,7 +36,7 @@ class BlogPost extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (BlogPost $post) {
+        static::saving(function (BlogPost $post) {
             if (empty($post->slug)) {
                 $post->slug = Str::slug($post->title);
             }

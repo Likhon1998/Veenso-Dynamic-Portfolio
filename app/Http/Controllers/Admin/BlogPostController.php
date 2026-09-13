@@ -10,6 +10,8 @@ use App\Models\BlogPost;
 use App\Models\BlogPostImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class BlogPostController extends Controller
@@ -57,7 +59,7 @@ class BlogPostController extends Controller
 
     public function update(Request $request, BlogPost $blogPost): RedirectResponse
     {
-        $validated = $this->validateBlogPost($request);
+        $validated = $this->validateBlogPost($request, $blogPost);
 
         if ($request->hasFile('featured_image')) {
             $validated['featured_image'] = $this->storeUploadedImage($request->file('featured_image'), 'blog');
@@ -77,17 +79,27 @@ class BlogPostController extends Controller
 
     public function destroy(BlogPost $blogPost): RedirectResponse
     {
-        $blogPost->images()->delete();
+        // Delete gallery rows without the relationship ORDER BY (breaks on PostgreSQL).
+        BlogPostImage::query()->where('blog_post_id', $blogPost->id)->delete();
         $blogPost->delete();
 
         return redirect()->route('admin.blog-posts.index')->with('success', 'Blog post deleted successfully.');
     }
 
-    private function validateBlogPost(Request $request): array
+    private function validateBlogPost(Request $request, ?BlogPost $blogPost = null): array
     {
+        if (! filled($request->input('slug'))) {
+            $request->merge(['slug' => Str::slug((string) $request->input('title'))]);
+        }
+
+        $slugRule = Rule::unique('blog_posts', 'slug');
+        if ($blogPost) {
+            $slugRule->ignore($blogPost->id);
+        }
+
         $validated = $request->validate(array_merge([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', $slugRule],
             'excerpt' => ['nullable', 'string'],
             'content' => ['nullable', 'string'],
             'author' => ['nullable', 'string', 'max:255'],
@@ -101,6 +113,11 @@ class BlogPostController extends Controller
         ], $this->galleryValidationRules('blog_post_images')));
 
         $validated['tags'] = $this->commaToArray($request->input('tags'));
+
+        // DB columns are NOT NULL; empty inputs become null via ConvertEmptyStringsToNull.
+        foreach (['excerpt', 'content', 'author', 'meta_title', 'meta_description'] as $field) {
+            $validated[$field] = $validated[$field] ?? '';
+        }
 
         unset(
             $validated['featured_image'],

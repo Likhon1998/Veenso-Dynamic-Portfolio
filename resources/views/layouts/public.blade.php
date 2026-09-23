@@ -8,19 +8,52 @@
     <meta name="description" content="@yield('meta_description', $siteSettings['meta_description'] ?? $siteSettings['tagline'])">
     <link rel="canonical" href="{{ url()->current() }}">
 
+    @php
+        $brandLogoUrl = ! empty($siteSettings['brand_logo']) ? media_url($siteSettings['brand_logo']) : null;
+        $favicon48 = asset('favicon-48x48.png');
+        $favicon192 = asset('favicon-192x192.png');
+        $favicon512 = asset('favicon-512x512.png');
+        $appleTouch = asset('apple-touch-icon.png');
+        $ogImage = $brandLogoUrl ?: $favicon512;
+    @endphp
+
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ $siteSettings['site_name'] }}">
     <meta property="og:title" content="@yield('title', $siteSettings['site_name'])">
     <meta property="og:description" content="@yield('meta_description', $siteSettings['tagline'])">
     <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $ogImage }}">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ $ogImage }}">
 
     @yield('meta')
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307070b'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='18' font-weight='700' fill='%238b5cf6' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+    {{-- Google Search favicon: square, crawlable files (not data URIs) --}}
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ $favicon48 }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ $favicon192 }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ $favicon512 }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ $appleTouch }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => $siteSettings['site_name'] ?? 'Veenso',
+            'url' => url('/'),
+            'logo' => $brandLogoUrl ?: $favicon512,
+            'image' => $brandLogoUrl ?: $favicon512,
+            'sameAs' => array_values(array_filter([
+                $siteSettings['social_linkedin'] ?? null,
+                $siteSettings['social_facebook'] ?? null,
+                $siteSettings['social_instagram'] ?? null,
+            ])),
+        ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT) !!}
+    </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

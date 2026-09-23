@@ -39,6 +39,7 @@ class SiteSettingController extends Controller
         if ($request->hasFile('brand_logo')) {
             $path = $this->storeUploadedImage($request->file('brand_logo'), 'brand');
             SiteSetting::set('brand_logo', $path, 'brand');
+            \Illuminate\Support\Facades\Artisan::call('veenso:sync-favicons');
         }
 
         if ($request->hasFile('hero_image')) {

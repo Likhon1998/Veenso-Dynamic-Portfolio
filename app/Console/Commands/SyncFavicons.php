@@ -96,6 +96,7 @@ class SyncFavicons extends Command
 
         // Stable Google-facing icon (no rotating filename).
         copy(public_path('favicon-192x192.png'), public_path('icon.png'));
+        copy(public_path('favicon-192x192.png'), public_path('veenso-mark.png'));
         copy(public_path('favicon-48x48.png'), public_path('favicon.png'));
 
         $this->writePngIco(

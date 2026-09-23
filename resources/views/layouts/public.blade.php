@@ -15,9 +15,9 @@
         $favicon512 = asset('favicon-512x512.png');
         $appleTouch = asset('apple-touch-icon.png');
         $faviconIco = asset('favicon.ico');
-        $faviconIcon = asset('icon.png');
+        $faviconIcon = asset('veenso-mark.png');
         $ogImage = $favicon512;
-        $schemaLogo = $favicon512;
+        $schemaLogo = asset('veenso-mark.png');
     @endphp
 
     <meta property="og:type" content="website">
@@ -34,14 +34,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    {{-- Google Search: one stable square icon (see Search Central favicon docs) --}}
-    <link rel="icon" href="{{ $faviconIco }}" sizes="48x48">
-    <link rel="icon" type="image/png" sizes="48x48" href="{{ $favicon48 }}">
+    {{-- Google Search: prefer the fresh stable square PNG (CDN may still cache old .ico/48 paths) --}}
     <link rel="icon" type="image/png" sizes="192x192" href="{{ $faviconIcon }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ $favicon192 }}">
     <link rel="icon" type="image/png" sizes="512x512" href="{{ $favicon512 }}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ $favicon48 }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ $appleTouch }}">
-    <link rel="shortcut icon" href="{{ $faviconIco }}">
+    <link rel="shortcut icon" type="image/png" href="{{ $faviconIcon }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
     <meta name="theme-color" content="#07070b">
 

@@ -10,7 +10,6 @@
     $approachMarkdown = trim($contentParts[1] ?? '');
     $introHtml = $introMarkdown !== '' ? \Illuminate\Support\Str::markdown($introMarkdown) : '';
     $approachHtml = $approachMarkdown !== '' ? \Illuminate\Support\Str::markdown($approachMarkdown) : '';
-    $valuesBlock = collect($page?->content_blocks ?? [])->firstWhere('type', 'values');
     $teamBlock = collect($page?->content_blocks ?? [])->firstWhere('type', 'team');
     $voicesBlock = collect($page?->content_blocks ?? [])->firstWhere('type', 'testimonials');
     $ctaBlock = collect($page?->content_blocks ?? [])->firstWhere('type', 'cta');
@@ -35,28 +34,12 @@
         </div>
     </section>
 
-    @if ($introHtml !== '' || $valuesBlock)
+    @if ($introHtml !== '')
         <section class="section-y pt-0">
-            <div class="container-veenso grid gap-10 lg:grid-cols-[1fr_320px]">
-                @if ($introHtml !== '')
-                    <div class="reveal prose-veenso max-w-none">
-                        {!! $introHtml !!}
-                    </div>
-                @endif
-
-                @if ($valuesBlock)
-                    <div class="reveal card-veenso flex flex-col gap-5 p-8 {{ $introHtml === '' ? 'lg:col-span-2' : '' }}" data-reveal-delay="100">
-                        <span class="eyebrow">Our Values</span>
-                        <ul class="flex flex-col gap-4">
-                            @foreach ($valuesBlock['items'] as $value)
-                                <li class="flex items-start gap-3 text-sm leading-relaxed text-veenso-text/90">
-                                    <x-icon name="check" class="mt-0.5 h-4 w-4 flex-shrink-0 text-veenso-accent-light" />
-                                    {{ $value }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            <div class="container-veenso">
+                <div class="reveal prose-veenso mx-auto max-w-3xl">
+                    {!! $introHtml !!}
+                </div>
             </div>
         </section>
     @endif
@@ -70,7 +53,7 @@
                 />
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($teamMembers as $index => $member)
-                        <div class="reveal card-veenso flex flex-col gap-4 p-7" data-reveal-delay="{{ $index * 80 }}">
+                        <div class="reveal card-veenso flex h-full flex-col gap-4 p-7" data-reveal-delay="{{ $index * 80 }}">
                             <x-media :src="$member->photo" :alt="$member->name" ratio="aspect-square" icon-name="sparkles" class="w-24 !rounded-full" />
                             <div>
                                 <h3 class="font-display text-base font-semibold text-veenso-text">{{ $member->name }}</h3>
@@ -87,7 +70,7 @@
     @if ($approachHtml !== '')
         <section class="section-y pt-0">
             <div class="container-veenso">
-                <div class="reveal prose-veenso max-w-none">
+                <div class="reveal prose-veenso mx-auto max-w-3xl">
                     {!! $approachHtml !!}
                 </div>
             </div>

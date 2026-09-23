@@ -16,7 +16,7 @@
             {{ $post->title }}
         </h3>
         @if ($post->excerpt)
-            <p class="text-sm leading-relaxed text-veenso-muted line-clamp-2">{{ $post->excerpt }}</p>
+            <p class="text-sm leading-relaxed text-veenso-muted line-clamp-3">{{ $post->excerpt }}</p>
         @endif
         <span class="mt-auto inline-flex items-center gap-1.5 pt-1 text-sm font-semibold text-veenso-accent-light">
             Read article <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1" />

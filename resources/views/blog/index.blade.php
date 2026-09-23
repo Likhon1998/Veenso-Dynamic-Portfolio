@@ -44,8 +44,8 @@
             @endif
 
             @if ($blogPosts->hasPages())
-                <div class="reveal pt-4">
-                    {{ $blogPosts->links() }}
+                <div class="pagination-veenso pt-4">
+                    {{ $blogPosts->onEachSide(1)->links() }}
                 </div>
             @endif
         </div>

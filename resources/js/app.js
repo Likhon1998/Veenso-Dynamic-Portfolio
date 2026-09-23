@@ -12,37 +12,54 @@ function initScrollReveal() {
         return;
     }
 
+    const isOnScreen = (el) => {
+        const rect = el.getBoundingClientRect();
+        return rect.bottom > 0 && rect.top < window.innerHeight + 80;
+    };
+
     // Failsafe: never leave content invisible if observer never fires
     const failsafe = setTimeout(() => {
         targets.forEach(show);
-    }, 2500);
+    }, 1800);
 
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting || entry.intersectionRatio > 0) {
                     const delay = entry.target.dataset.revealDelay || 0;
                     setTimeout(() => show(entry.target), Number(delay));
                     observer.unobserve(entry.target);
                 }
             });
         },
-        { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
+        { threshold: 0.01, rootMargin: '80px 0px 80px 0px' }
     );
 
-    targets.forEach((el) => observer.observe(el));
+    targets.forEach((el) => {
+        if (isOnScreen(el)) {
+            show(el);
+            return;
+        }
+        observer.observe(el);
+    });
 
-    // Clear failsafe once everything above the fold is handled
     window.addEventListener('load', () => {
-        clearTimeout(failsafe);
-        // Still reveal anything that should already be on screen
         targets.forEach((el) => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.95) {
+            if (isOnScreen(el)) {
                 show(el);
+                observer.unobserve(el);
             }
         });
     }, { once: true });
+
+    // Keep failsafe as last resort; only clear once every target is visible
+    const watch = setInterval(() => {
+        const pending = [...targets].filter((el) => !el.classList.contains('is-visible'));
+        if (!pending.length) {
+            clearTimeout(failsafe);
+            clearInterval(watch);
+        }
+    }, 400);
 }
 
 function initHeaderScrollState() {

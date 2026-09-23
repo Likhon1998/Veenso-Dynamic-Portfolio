@@ -5,6 +5,8 @@
     'iconName' => 'sparkles',
     'label' => null,
     'title' => null,
+    'loading' => 'lazy',
+    'fetchpriority' => null,
 ])
 
 @php
@@ -36,7 +38,8 @@
             src="{{ $url }}"
             alt="{{ $alt }}"
             class="h-full w-full object-cover"
-            loading="lazy"
+            loading="{{ $loading }}"
+            @if ($fetchpriority) fetchpriority="{{ $fetchpriority }}" @endif
             onerror="this.classList.add('hidden'); this.nextElementSibling?.classList.remove('hidden');"
         >
         <div class="media-fallback absolute inset-0 hidden flex flex-col items-center justify-center gap-3 p-6 text-center">

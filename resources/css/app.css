@@ -153,7 +153,8 @@
 
     .page-hero {
         position: relative;
-        overflow: hidden;
+        overflow-x: clip;
+        overflow-y: visible;
         padding-top: 5.75rem;
         padding-bottom: 1.75rem;
     }
@@ -1249,5 +1250,54 @@
         font-weight: 700;
         color: var(--color-veenso-accent-light);
         flex-shrink: 0;
+    }
+
+    /* Blog / public pagination */
+    .pagination-veenso nav {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination-veenso nav > div:first-child {
+        display: none;
+    }
+
+    .pagination-veenso p,
+    .pagination-veenso span,
+    .pagination-veenso a {
+        color: var(--color-veenso-muted);
+        font-size: 0.875rem;
+    }
+
+    .pagination-veenso span[aria-current="page"] span,
+    .pagination-veenso [aria-current="page"] {
+        color: #fff;
+        background: rgba(139, 92, 246, 0.25);
+        border-color: rgba(139, 92, 246, 0.45);
+    }
+
+    .pagination-veenso a,
+    .pagination-veenso span > span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2.25rem;
+        height: 2.25rem;
+        padding: 0 0.65rem;
+        border-radius: 0.65rem;
+        border: 1px solid var(--color-veenso-border);
+        background: rgba(19, 19, 28, 0.8);
+        transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .pagination-veenso a:hover {
+        color: #fff;
+        border-color: rgba(139, 92, 246, 0.45);
+        background: rgba(139, 92, 246, 0.16);
+    }
+
+    .pagination-veenso svg {
+        width: 1rem;
+        height: 1rem;
     }
 }

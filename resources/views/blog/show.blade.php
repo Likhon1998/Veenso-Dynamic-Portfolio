@@ -38,13 +38,13 @@
                     @endif
                 </div>
 
-                <x-media :src="$blogPost->featured_image" :alt="$blogPost->title" ratio="aspect-[16/10]" icon-name="sparkles" class="reveal w-full min-w-0" data-reveal-delay="120" />
+                <x-media :src="$blogPost->featured_image" :alt="$blogPost->title" ratio="aspect-[16/10]" icon-name="sparkles" loading="eager" fetchpriority="high" class="reveal w-full min-w-0" data-reveal-delay="120" />
             </div>
         </section>
 
         <section class="section-y pt-0">
             <div class="container-veenso grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
-                <div class="reveal prose-veenso min-w-0 max-w-none">
+                <div class="prose-veenso min-w-0 max-w-none">
                     {!! $htmlContent !!}
 
                     @if ($blogPost->images->isNotEmpty())

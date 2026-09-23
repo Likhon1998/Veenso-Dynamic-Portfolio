@@ -107,6 +107,7 @@
                 <a href="{{ route('case-studies.index') }}" class="nav-link @if(request()->routeIs('case-studies.*')) is-active @endif">Case Study</a>
                 <a href="{{ route('portfolio.index') }}" class="nav-link @if(request()->routeIs('portfolio.*')) is-active @endif">Portfolio</a>
                 <a href="{{ route('blog.index') }}" class="nav-link @if(request()->routeIs('blog.*')) is-active @endif">Blog</a>
+                <a href="{{ route('faq') }}" class="nav-link @if(request()->routeIs('faq')) is-active @endif">FAQ</a>
                 <a href="{{ route('contact') }}" class="nav-link @if(request()->routeIs('contact')) is-active @endif">Contact</a>
             </nav>
 
@@ -142,6 +143,7 @@
                 <a href="{{ route('case-studies.index') }}" class="nav-link py-2.5 @if(request()->routeIs('case-studies.*')) is-active @endif">Case Study</a>
                 <a href="{{ route('portfolio.index') }}" class="nav-link py-2.5 @if(request()->routeIs('portfolio.*')) is-active @endif">Portfolio</a>
                 <a href="{{ route('blog.index') }}" class="nav-link py-2.5 @if(request()->routeIs('blog.*')) is-active @endif">Blog</a>
+                <a href="{{ route('faq') }}" class="nav-link py-2.5 @if(request()->routeIs('faq')) is-active @endif">FAQ</a>
                 <a href="{{ route('contact') }}" class="nav-link py-2.5 @if(request()->routeIs('contact')) is-active @endif">Contact</a>
                 <x-button :href="route('contact')" variant="primary" size="sm" class="mt-3 w-full">{{ $siteSettings['header_cta_text'] ?? 'Book a Call' }}</x-button>
             </nav>

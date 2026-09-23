@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
 
+        $middleware->append(\App\Http\Middleware\RedirectWwwToApex::class);
+
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
         $middleware->redirectUsersTo(fn () => route('admin.dashboard'));
     })

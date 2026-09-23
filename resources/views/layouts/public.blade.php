@@ -9,12 +9,13 @@
     <link rel="canonical" href="{{ url()->current() }}">
 
     @php
-        $favVersion = @filemtime(public_path('favicon-48x48.png')) ?: time();
-        $favicon48 = asset('favicon-48x48.png').'?v='.$favVersion;
-        $favicon192 = asset('favicon-192x192.png').'?v='.$favVersion;
-        $favicon512 = asset('favicon-512x512.png').'?v='.$favVersion;
-        $appleTouch = asset('apple-touch-icon.png').'?v='.$favVersion;
-        $faviconIco = asset('favicon.ico').'?v='.$favVersion;
+        // Google requires a stable favicon URL (no rotating ?v= cache-busters).
+        $favicon48 = asset('favicon-48x48.png');
+        $favicon192 = asset('favicon-192x192.png');
+        $favicon512 = asset('favicon-512x512.png');
+        $appleTouch = asset('apple-touch-icon.png');
+        $faviconIco = asset('favicon.ico');
+        $faviconIcon = asset('icon.png');
         $ogImage = $favicon512;
         $schemaLogo = $favicon512;
     @endphp
@@ -33,14 +34,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    {{-- Google prefers a crawlable square icon >= 48x48 (icon mark, not wide wordmark) --}}
+    {{-- Google Search: one stable square icon (see Search Central favicon docs) --}}
+    <link rel="icon" href="{{ $faviconIco }}" sizes="48x48">
     <link rel="icon" type="image/png" sizes="48x48" href="{{ $favicon48 }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ $faviconIcon }}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{ $favicon192 }}">
     <link rel="icon" type="image/png" sizes="512x512" href="{{ $favicon512 }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ $appleTouch }}">
     <link rel="shortcut icon" href="{{ $faviconIco }}">
-    <link rel="icon" href="{{ $faviconIco }}" sizes="any">
-    <link rel="manifest" href="{{ asset('site.webmanifest') }}?v={{ $favVersion }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
     <meta name="theme-color" content="#07070b">
 
     <script type="application/ld+json">

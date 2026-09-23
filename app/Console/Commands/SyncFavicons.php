@@ -78,7 +78,7 @@ class SyncFavicons extends Command
             imagealphablending($canvas, true);
 
             // Fill most of the square so the mark stays readable in Google/search tabs.
-            $pad = (int) round($size * 0.12);
+            $pad = (int) round($size * 0.08);
             $box = $size - ($pad * 2);
             $scale = min($box / $cw, $box / $ch);
             $dw = max(1, (int) round($cw * $scale));
@@ -94,12 +94,78 @@ class SyncFavicons extends Command
 
         imagedestroy($crop);
 
+        // Stable Google-facing icon (no rotating filename).
+        copy(public_path('favicon-192x192.png'), public_path('icon.png'));
         copy(public_path('favicon-48x48.png'), public_path('favicon.png'));
-        copy(public_path('favicon-48x48.png'), public_path('favicon.ico'));
 
-        $this->info('Favicons synced (icon mark). Google can take several days to update search results.');
+        $this->writePngIco(
+            [
+                public_path('favicon-48x48.png'),
+                public_path('favicon-192x192.png'),
+            ],
+            public_path('favicon.ico')
+        );
+
+        $this->info('Favicons synced (icon mark). Google Search can take days–weeks to replace the globe.');
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Build a real .ico containing PNG frames (supported by browsers + Google).
+     *
+     * @param  list<string>  $pngPaths
+     */
+    private function writePngIco(array $pngPaths, string $icoPath): void
+    {
+        $images = [];
+        foreach ($pngPaths as $path) {
+            if (! is_file($path)) {
+                continue;
+            }
+            $data = file_get_contents($path);
+            $info = @getimagesize($path);
+            if ($data === false || ! $info) {
+                continue;
+            }
+            $images[] = [
+                'data' => $data,
+                'w' => $info[0] >= 256 ? 0 : $info[0],
+                'h' => $info[1] >= 256 ? 0 : $info[1],
+            ];
+        }
+
+        if ($images === []) {
+            copy(public_path('favicon-48x48.png'), $icoPath);
+
+            return;
+        }
+
+        $count = count($images);
+        $offset = 6 + (16 * $count);
+        $dir = pack('vvv', 0, 1, $count);
+        $entries = '';
+        $payload = '';
+
+        foreach ($images as $image) {
+            $size = strlen($image['data']);
+            $entries .= pack(
+                'CCCCvvVV',
+                $image['w'],
+                $image['h'],
+                0,
+                0,
+                1,
+                32,
+                $size,
+                $offset
+            );
+            $payload .= $image['data'];
+            $offset += $size;
+        }
+
+        file_put_contents($icoPath, $dir.$entries.$payload);
+        $this->line("Wrote {$icoPath}");
     }
 
     /**

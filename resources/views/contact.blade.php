@@ -42,7 +42,19 @@
                                 <x-icon name="target" class="mt-0.5 h-5 w-5 flex-shrink-0 text-veenso-accent-light" />
                                 <div>
                                     <div class="text-veenso-muted">Phone</div>
-                                    <a href="tel:{{ $phone }}" class="font-medium text-veenso-text transition-colors hover:text-veenso-accent-light">{{ $phone }}</a>
+                                    <a href="tel:{{ preg_replace('/\s+/', '', $phone) }}" class="font-medium text-veenso-text transition-colors hover:text-veenso-accent-light">{{ $phone }}</a>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <x-icon name="whatsapp" class="mt-0.5 h-5 w-5 flex-shrink-0 text-veenso-accent-light" />
+                                <div>
+                                    <div class="text-veenso-muted">WhatsApp</div>
+                                    <a
+                                        href="https://wa.me/{{ preg_replace('/\D+/', '', $phone) }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="font-medium text-veenso-text transition-colors hover:text-veenso-accent-light"
+                                    >{{ $phone }}</a>
                                 </div>
                             </li>
                         @endif

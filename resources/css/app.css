@@ -1301,19 +1301,34 @@
         height: 1rem;
     }
 
-    /* Why Clients Choose — clickable services */
+    /* Why Clients Choose — 3-column service grid */
     .why-service-list {
-        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+    }
+
+    @media (width >= 40rem) {
+        .why-service-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (width >= 64rem) {
+        .why-service-list {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
     }
 
     .why-service-card {
         --why-delay: 0ms;
         position: relative;
-        display: grid;
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 0.85rem;
-        padding: 1rem 1.05rem;
+        display: flex;
+        min-height: 100%;
+        flex-direction: column;
+        gap: 0.55rem;
+        padding: 1rem 1.05rem 1.1rem;
         border-radius: 0.9rem;
         border: 1px solid var(--color-veenso-border);
         background: rgba(19, 19, 28, 0.55);
@@ -1321,10 +1336,10 @@
         color: inherit;
         overflow: hidden;
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(16px);
         transition:
-            opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--why-delay),
-            transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--why-delay),
+            opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--why-delay),
+            transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--why-delay),
             border-color 0.25s ease,
             background 0.25s ease,
             box-shadow 0.25s ease;
@@ -1349,7 +1364,7 @@
     .why-service-card.is-current {
         border-color: rgba(139, 92, 246, 0.4);
         background: rgba(139, 92, 246, 0.1);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
     }
 
     .why-service-card:hover::before,
@@ -1357,25 +1372,24 @@
         opacity: 1;
     }
 
-    .why-service-card__index {
-        font-family: var(--font-display);
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        color: var(--color-veenso-accent-light);
-        opacity: 0.85;
+    .why-service-card__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
     }
 
-    .why-service-card__body {
-        display: flex;
-        min-width: 0;
-        flex-direction: column;
-        gap: 0.3rem;
+    .why-service-card__index {
+        font-family: var(--font-display);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        color: var(--color-veenso-accent-light);
+        opacity: 0.9;
     }
 
     .why-service-card__title {
-        display: inline-flex;
-        flex-wrap: wrap;
+        display: block;
         font-family: var(--font-sans);
         font-size: 0.95rem;
         font-weight: 650;
@@ -1384,40 +1398,45 @@
     }
 
     .why-service-card__word {
-        display: inline-flex;
-        white-space: pre;
-    }
-
-    .why-service-card__letter {
         display: inline-block;
+        margin-right: 0.28em;
         opacity: 0;
-        transform: translateY(0.55em);
+        transform: translateY(0.45em);
         transition:
             opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
             transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
             color 0.25s ease;
     }
 
-    .why-service-card.is-inview .why-service-card__letter {
+    .why-service-card__word:last-child {
+        margin-right: 0;
+    }
+
+    .why-service-card.is-inview .why-service-card__word {
         opacity: 1;
         transform: translateY(0);
     }
 
-    .why-service-card:hover .why-service-card__letter {
+    .why-service-card:hover .why-service-card__word {
         color: #c4b5fd;
     }
 
     .why-service-card__summary {
-        font-size: 0.8125rem;
-        line-height: 1.55;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        margin-top: auto;
+        font-size: 0.8rem;
+        line-height: 1.5;
         color: var(--color-veenso-muted);
     }
 
     .why-service-card__arrow {
         display: grid;
         place-items: center;
-        width: 1.85rem;
-        height: 1.85rem;
+        width: 1.65rem;
+        height: 1.65rem;
         border-radius: 999px;
         border: 1px solid transparent;
         color: var(--color-veenso-muted);
@@ -1425,7 +1444,7 @@
     }
 
     .why-service-card:hover .why-service-card__arrow {
-        transform: translateX(3px);
+        transform: translateX(2px);
         color: #fff;
         border-color: rgba(139, 92, 246, 0.45);
         background: rgba(139, 92, 246, 0.2);
@@ -1433,7 +1452,7 @@
 
     @media (prefers-reduced-motion: reduce) {
         .why-service-card,
-        .why-service-card__letter {
+        .why-service-card__word {
             opacity: 1 !important;
             transform: none !important;
             transition: none !important;

@@ -182,22 +182,12 @@ function initWhyServiceHeadings() {
 
         titleEl.dataset.prepared = '1';
         titleEl.setAttribute('aria-label', text);
-        titleEl.innerHTML = '';
+        titleEl.textContent = '';
 
-        text.split(/(\s+)/).forEach((chunk) => {
-            if (/^\s+$/.test(chunk)) {
-                titleEl.appendChild(document.createTextNode(chunk));
-                return;
-            }
-
+        text.split(/\s+/).filter(Boolean).forEach((chunk) => {
             const word = document.createElement('span');
             word.className = 'why-service-card__word';
-            [...chunk].forEach((char) => {
-                const letter = document.createElement('span');
-                letter.className = 'why-service-card__letter';
-                letter.textContent = char;
-                word.appendChild(letter);
-            });
+            word.textContent = chunk;
             titleEl.appendChild(word);
         });
     };
@@ -208,9 +198,9 @@ function initWhyServiceHeadings() {
 
     const activate = (card) => {
         card.classList.add('is-inview');
-        const letters = card.querySelectorAll('.why-service-card__letter');
-        letters.forEach((letter, i) => {
-            letter.style.transitionDelay = `${i * 18}ms`;
+        const words = card.querySelectorAll('.why-service-card__word');
+        words.forEach((word, i) => {
+            word.style.transitionDelay = `${i * 45}ms`;
         });
     };
 

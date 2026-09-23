@@ -25,22 +25,24 @@
     <section class="section-y pt-0">
         <div class="container-veenso flex flex-col gap-10">
             @if ($categories->isNotEmpty())
-                <div class="reveal flex flex-wrap justify-center gap-3">
-                    <span class="tag-veenso !bg-veenso-accent/20">All</span>
+                <div class="reveal flex flex-wrap justify-center gap-2 sm:gap-3">
+                    <a href="{{ route('portfolio.index') }}" class="tag-veenso {{ empty($activeCategory) ? '!bg-veenso-accent/25' : '' }}">All</a>
                     @foreach ($categories as $category)
-                        <span class="tag-veenso">{{ $category }}</span>
+                        <a href="{{ route('portfolio.index', ['category' => $category]) }}" class="tag-veenso {{ ($activeCategory ?? null) === $category ? '!bg-veenso-accent/25' : '' }}">{{ $category }}</a>
                     @endforeach
                 </div>
             @endif
 
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid min-w-0 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
                 @foreach ($portfolioItems as $index => $item)
                     <x-portfolio-card :item="$item" :index="$index" />
                 @endforeach
             </div>
 
             @if ($portfolioItems->isEmpty())
-                <p class="reveal text-center text-veenso-muted">New portfolio pieces are on the way. Check back soon.</p>
+                <p class="reveal text-center text-veenso-muted">
+                    {{ filled($activeCategory ?? null) ? 'No portfolio pieces in this category yet.' : 'New portfolio pieces are on the way. Check back soon.' }}
+                </p>
             @endif
         </div>
     </section>

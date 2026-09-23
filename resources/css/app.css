@@ -1048,6 +1048,15 @@
         padding: 0.3rem 0.85rem;
         font-size: 0.75rem;
         font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    a.tag-veenso:hover {
+        background: rgba(139, 92, 246, 0.18);
+        border-color: rgba(139, 92, 246, 0.35);
+        color: #fff;
     }
 
     /* Site header */

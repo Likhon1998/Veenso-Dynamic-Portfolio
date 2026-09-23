@@ -10,10 +10,12 @@
 
     @php
         $brandLogoUrl = ! empty($siteSettings['brand_logo']) ? media_url($siteSettings['brand_logo']) : null;
-        $favicon48 = asset('favicon-48x48.png');
-        $favicon192 = asset('favicon-192x192.png');
-        $favicon512 = asset('favicon-512x512.png');
-        $appleTouch = asset('apple-touch-icon.png');
+        $favVersion = @filemtime(public_path('favicon-48x48.png')) ?: time();
+        $favicon48 = asset('favicon-48x48.png').'?v='.$favVersion;
+        $favicon192 = asset('favicon-192x192.png').'?v='.$favVersion;
+        $favicon512 = asset('favicon-512x512.png').'?v='.$favVersion;
+        $appleTouch = asset('apple-touch-icon.png').'?v='.$favVersion;
+        $faviconIco = asset('favicon.ico').'?v='.$favVersion;
         $ogImage = $brandLogoUrl ?: $favicon512;
     @endphp
 
@@ -31,13 +33,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    {{-- Google Search favicon: square, crawlable files (not data URIs) --}}
-    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    {{-- Google prefers a crawlable square icon >= 48x48 (icon mark, not wide wordmark) --}}
     <link rel="icon" type="image/png" sizes="48x48" href="{{ $favicon48 }}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{ $favicon192 }}">
     <link rel="icon" type="image/png" sizes="512x512" href="{{ $favicon512 }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ $appleTouch }}">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ $faviconIco }}">
+    <link rel="icon" href="{{ $faviconIco }}" sizes="any">
 
     <script type="application/ld+json">
         {!! json_encode([

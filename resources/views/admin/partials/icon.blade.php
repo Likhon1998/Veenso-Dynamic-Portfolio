@@ -21,6 +21,7 @@ $icons = [
     'bell' => '<path stroke-linecap="round" stroke-linejoin="round" d="M6 16h12l-1.2-1.5A5 5 0 0 1 16 11V9a4 4 0 1 0-8 0v2a5 5 0 0 1-.8 3.5L6 16zm4 2a2 2 0 0 0 4 0"/>',
     'external' => '<path stroke-linecap="round" stroke-linejoin="round" d="M14 4h6v6M20 4 11 13M10 5H5a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-5"/>',
     'chevron' => '<path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>',
+    'logout' => '<path stroke-linecap="round" stroke-linejoin="round" d="M10 17H5a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h5M14 12h7m0 0-3-3m3 3-3 3"/>',
     'star' => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5l2.4 4.86 5.36.78-3.88 3.78.92 5.36L12 15.9l-4.8 2.52.92-5.36-3.88-3.78 5.36-.78L12 3.5z"/>',
 ];
 $path = $icons[$name ?? 'pages'] ?? $icons['pages'];

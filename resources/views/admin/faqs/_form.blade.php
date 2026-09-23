@@ -25,8 +25,8 @@
     <div class="form-group">
         <label for="status">Status *</label>
         <select id="status" name="status" class="form-control" required>
-            @foreach (['draft', 'published'] as $status)
-                <option value="{{ $status }}" @selected(old('status', $item?->status ?? 'draft') === $status)>{{ ucfirst($status) }}</option>
+            @foreach (['published', 'draft'] as $status)
+                <option value="{{ $status }}" @selected(old('status', $item?->status ?? 'published') === $status)>{{ ucfirst($status) }}</option>
             @endforeach
         </select>
     </div>

@@ -35,6 +35,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
             ->name('blog-posts.save');
         Route::resource('blog-posts', BlogPostController::class)->except(['show']);
         Route::resource('testimonials', TestimonialController::class)->except(['show']);
+        Route::post('faqs/{faq}/delete', [FaqController::class, 'destroy'])->name('faqs.delete');
+        Route::post('faqs/{faq}/update', [FaqController::class, 'update'])->name('faqs.save');
         Route::resource('faqs', FaqController::class)->except(['show']);
         Route::resource('pages', PageController::class)->except(['show']);
         Route::resource('team-members', TeamMemberController::class)->except(['show']);

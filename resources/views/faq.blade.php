@@ -26,15 +26,20 @@
         <div class="container-veenso mx-auto flex max-w-3xl flex-col gap-8">
             @forelse ($faqGroups as $category => $faqs)
                 <div class="flex flex-col gap-2">
-                    <h2 class="reveal font-display text-xl font-semibold text-veenso-accent-light">{{ $category }}</h2>
+                    @if ($faqGroups->count() > 1)
+                        <h2 class="reveal font-display text-xl font-semibold text-veenso-accent-light">{{ $category }}</h2>
+                    @endif
                     <div>
                         @foreach ($faqs as $index => $faq)
-                            <x-faq-item :question="$faq->question" :answer="$faq->answer" :open="$index === 0" />
+                            <x-faq-item :question="$faq->question" :answer="$faq->answer" :open="$faqGroups->keys()->first() === $category && $index === 0" />
                         @endforeach
                     </div>
                 </div>
             @empty
-                <p class="reveal text-center text-veenso-muted">FAQs are coming soon.</p>
+                <div class="reveal rounded-2xl border border-dashed border-veenso-border bg-veenso-elevated/30 px-6 py-14 text-center">
+                    <p class="font-display text-lg font-semibold text-veenso-text">No FAQs yet</p>
+                    <p class="mx-auto mt-2 max-w-md text-sm leading-relaxed text-veenso-muted">Questions and answers will appear here once they are published from the admin panel.</p>
+                </div>
             @endforelse
         </div>
     </section>

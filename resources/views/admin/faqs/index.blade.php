@@ -20,11 +20,11 @@
                         <td><span class="badge badge-{{ $faq->status }}">{{ $faq->status }}</span></td>
                         <td class="table-actions">
                             <a href="{{ route('admin.faqs.edit', $faq) }}" class="btn btn-secondary btn-sm">Edit</a>
-                            <form action="{{ route('admin.faqs.destroy', $faq) }}" method="POST" onsubmit="return confirm('Delete?')">@csrf @method('DELETE')<button class="btn btn-danger btn-sm">Delete</button></form>
+                            <form action="{{ route('admin.faqs.delete', $faq) }}" method="POST" onsubmit="return confirm('Delete this FAQ?')">@csrf<button class="btn btn-danger btn-sm">Delete</button></form>
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="4" style="text-align:center;color:#6b7280;">No FAQs found.</td></tr>
+                    <tr><td colspan="4" style="text-align:center;color:#6b7280;">No FAQs yet. Click <strong>Add FAQ</strong> to create the first question.</td></tr>
                 @endforelse
             </tbody>
         </table>

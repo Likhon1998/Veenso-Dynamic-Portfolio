@@ -22,8 +22,9 @@ class PageController extends Controller
         $faqs = Faq::query()
             ->where('status', 'published')
             ->orderBy('sort_order')
+            ->orderBy('question')
             ->get()
-            ->groupBy('category');
+            ->groupBy(fn (Faq $faq) => filled($faq->category) ? $faq->category : 'General');
 
         return view('faq', [
             'page' => Page::query()->where('slug', 'faq')->where('status', 'published')->first(),

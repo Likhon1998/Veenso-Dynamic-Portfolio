@@ -5,8 +5,8 @@
 
 @section('content')
 <div class="card">
-    <form action="{{ route('admin.faqs.update', $faq) }}" method="POST">
-        @csrf @method('PUT')
+    <form action="{{ route('admin.faqs.save', $faq) }}" method="POST">
+        @csrf
         @include('admin.faqs._form', ['faq' => $faq])
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Update</button>

@@ -68,8 +68,7 @@ class InstallDemoContent extends Command
         $this->info('Importing testimonials...');
         $this->importTestimonials();
 
-        $this->info('Importing FAQs...');
-        $this->importFaqs();
+        $this->info('Skipping global FAQs (managed by client in Admin → FAQs)...');
 
         $this->info('Importing blog posts...');
         $this->importBlogPosts();
@@ -765,54 +764,7 @@ SVG;
 
     private function importFaqs(): void
     {
-        $faqs = [
-            [
-                'question' => 'What makes Veenso different from other agencies?',
-                'answer' => 'We are strategy-first and outcome-accountable. Every engagement starts with business goals, not service menus. You get transparent reporting tied to revenue and pipeline — not vanity metrics — and a single team that integrates SEO, web, paid, and brand instead of siloed vendors.',
-                'category' => 'General',
-                'status' => 'published',
-                'sort_order' => 1,
-            ],
-            [
-                'question' => 'What is your typical engagement model?',
-                'answer' => 'Most clients work with us on monthly retainers for ongoing SEO, marketing, or ads management. Project-based engagements cover website builds, rebrands, and one-time audits. We scope based on your goals and provide clear deliverables and KPIs upfront.',
-                'category' => 'General',
-                'status' => 'published',
-                'sort_order' => 2,
-            ],
-            [
-                'question' => 'How do you measure success?',
-                'answer' => 'We define success metrics during onboarding — typically revenue, leads, ROAS, organic traffic quality, or conversion rate depending on the engagement. Monthly dashboards show progress against these KPIs with clear commentary on what we are doing next.',
-                'category' => 'General',
-                'status' => 'published',
-                'sort_order' => 3,
-            ],
-            [
-                'question' => 'Do you work with startups or only established companies?',
-                'answer' => 'Both. We work with Series A startups building their first growth engine and established companies optimizing existing channels. The common thread is clients who value strategy and measurable outcomes over cheap execution.',
-                'category' => 'General',
-                'status' => 'published',
-                'sort_order' => 4,
-            ],
-            [
-                'question' => 'How long does a website project take?',
-                'answer' => 'Marketing sites typically take 6–10 weeks. E-commerce migrations and custom Laravel builds run 10–16 weeks. Timelines depend on scope, content readiness, and revision cycles. We provide a detailed timeline during discovery.',
-                'category' => 'Services',
-                'status' => 'published',
-                'sort_order' => 5,
-            ],
-            [
-                'question' => 'Can you work with our existing marketing team?',
-                'answer' => 'Yes. We frequently collaborate with in-house teams — providing strategy, overflow execution, or specialized expertise in SEO, paid media, or development while your team handles day-to-day operations.',
-                'category' => 'Partnership',
-                'status' => 'published',
-                'sort_order' => 6,
-            ],
-        ];
-
-        foreach ($faqs as $faq) {
-            Faq::query()->updateOrCreate(['question' => $faq['question']], $faq);
-        }
+        // Intentionally empty — site FAQs are managed only from Admin → FAQs.
     }
 
     private function importBlogPosts(): void

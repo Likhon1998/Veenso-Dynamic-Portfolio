@@ -33,5 +33,6 @@ class AdminLogoutTest extends TestCase
         $response->assertSee(route('admin.logout'), false);
         $response->assertSee(route('admin.contact-messages.index'), false);
         $response->assertSee('Log out', false);
+        $response->assertSee('Notifications', false);
     }
 }

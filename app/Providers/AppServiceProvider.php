@@ -73,6 +73,10 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['admin.layouts.app', 'admin.partials._sidebar', 'admin.partials._topbar'], function ($view) {
             $view->with([
                 'unreadMessagesCount' => ContactMessage::query()->where('status', 'unread')->count(),
+                'recentAdminMessages' => ContactMessage::query()
+                    ->latest()
+                    ->take(5)
+                    ->get(['id', 'name', 'email', 'subject', 'message', 'status', 'created_at']),
                 'adminBrandLogo' => SiteSetting::get('brand_logo'),
                 'adminSiteName' => SiteSetting::get('site_name', 'Veenso'),
             ]);

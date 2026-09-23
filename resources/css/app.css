@@ -1038,6 +1038,24 @@
         box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
     }
 
+    select.input-veenso {
+        color-scheme: dark;
+        cursor: pointer;
+        appearance: none;
+        background-color: #13131c;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a1a1aa'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.75' d='m19.5 8.25-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.9rem center;
+        background-size: 1rem;
+        padding-right: 2.5rem;
+    }
+
+    select.input-veenso option,
+    select.input-veenso optgroup {
+        background-color: #13131c;
+        color: #f4f4f8;
+    }
+
     /* Tag / pill */
     .tag-veenso {
         display: inline-flex;

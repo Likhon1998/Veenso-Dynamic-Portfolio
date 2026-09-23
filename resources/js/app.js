@@ -168,9 +168,75 @@ function initServicesDropdown() {
     });
 }
 
+function initWhyServiceHeadings() {
+    const section = document.querySelector('[data-why-services]');
+    if (!section) return;
+
+    const cards = section.querySelectorAll('[data-why-service-card]');
+    if (!cards.length) return;
+
+    const prepareHeading = (titleEl) => {
+        if (!titleEl || titleEl.dataset.prepared === '1') return;
+        const text = titleEl.textContent.trim();
+        if (!text) return;
+
+        titleEl.dataset.prepared = '1';
+        titleEl.setAttribute('aria-label', text);
+        titleEl.innerHTML = '';
+
+        text.split(/(\s+)/).forEach((chunk) => {
+            if (/^\s+$/.test(chunk)) {
+                titleEl.appendChild(document.createTextNode(chunk));
+                return;
+            }
+
+            const word = document.createElement('span');
+            word.className = 'why-service-card__word';
+            [...chunk].forEach((char) => {
+                const letter = document.createElement('span');
+                letter.className = 'why-service-card__letter';
+                letter.textContent = char;
+                word.appendChild(letter);
+            });
+            titleEl.appendChild(word);
+        });
+    };
+
+    cards.forEach((card) => {
+        prepareHeading(card.querySelector('[data-animate-heading]'));
+    });
+
+    const activate = (card) => {
+        card.classList.add('is-inview');
+        const letters = card.querySelectorAll('.why-service-card__letter');
+        letters.forEach((letter, i) => {
+            letter.style.transitionDelay = `${i * 18}ms`;
+        });
+    };
+
+    if (!('IntersectionObserver' in window)) {
+        cards.forEach(activate);
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                activate(entry.target);
+                observer.unobserve(entry.target);
+            });
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initHeaderScrollState();
     initMobileNav();
     initServicesDropdown();
+    initWhyServiceHeadings();
 });

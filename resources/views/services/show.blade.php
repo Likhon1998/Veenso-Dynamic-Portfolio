@@ -330,10 +330,10 @@
         </section>
     @endif
 
-    {{-- Ideal + why choose --}}
-    @if (! empty($service->ideal_clients) || ! empty($service->why_choose))
-        <section class="section-y">
-            <div class="container-veenso grid gap-8 lg:grid-cols-2">
+    {{-- Ideal + all services (Why Clients Choose Veenso) --}}
+    @if (! empty($service->ideal_clients) || ($allServices ?? collect())->isNotEmpty())
+        <section class="section-y" data-why-services>
+            <div class="container-veenso grid gap-8 lg:grid-cols-2 lg:gap-10">
                 @if (! empty($service->ideal_clients))
                     <div class="reveal flex flex-col gap-4">
                         <span class="eyebrow">Ideal If You…</span>
@@ -347,7 +347,40 @@
                         </ul>
                     </div>
                 @endif
-                @if (! empty($service->why_choose))
+
+                @if (($allServices ?? collect())->isNotEmpty())
+                    <div class="reveal flex flex-col gap-4 @if(empty($service->ideal_clients)) lg:col-span-2 @endif" data-reveal-delay="60">
+                        <div class="flex flex-col gap-1.5">
+                            <span class="eyebrow">Why Clients Choose Veenso</span>
+                            <p class="text-sm text-veenso-muted">Explore every growth service — tap a heading to open that page.</p>
+                        </div>
+                        <div class="why-service-list flex flex-col gap-3">
+                            @foreach ($allServices as $index => $navService)
+                                @php
+                                    $isCurrent = $navService->is($service);
+                                @endphp
+                                <a
+                                    href="{{ route('services.show', $navService) }}"
+                                    class="why-service-card group {{ $isCurrent ? 'is-current' : '' }}"
+                                    data-why-service-card
+                                    style="--why-delay: {{ $index * 70 }}ms"
+                                    @if ($isCurrent) aria-current="page" @endif
+                                >
+                                    <span class="why-service-card__index" aria-hidden="true">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
+                                    <span class="why-service-card__body">
+                                        <span class="why-service-card__title" data-animate-heading>{{ $navService->title }}</span>
+                                        @if ($navService->summary)
+                                            <span class="why-service-card__summary">{{ \Illuminate\Support\Str::limit($navService->summary, 110) }}</span>
+                                        @endif
+                                    </span>
+                                    <span class="why-service-card__arrow" aria-hidden="true">
+                                        <x-icon name="arrow-right" class="h-4 w-4" />
+                                    </span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @elseif (! empty($service->why_choose))
                     <div class="reveal flex flex-col gap-4" data-reveal-delay="60">
                         <span class="eyebrow">Why Clients Choose Veenso</span>
                         <div class="flex flex-col gap-3">

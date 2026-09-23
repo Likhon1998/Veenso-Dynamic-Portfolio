@@ -31,6 +31,12 @@ class ServiceController extends Controller
 
         return view('services.show', [
             'service' => $service,
+            'allServices' => Service::query()
+                ->where('status', 'published')
+                ->orderByDesc('is_primary')
+                ->orderBy('sort_order')
+                ->orderBy('title')
+                ->get(['id', 'title', 'slug', 'summary', 'icon', 'is_primary', 'sort_order']),
             'relatedServices' => Service::query()
                 ->where('status', 'published')
                 ->where('id', '!=', $service->id)

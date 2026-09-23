@@ -4,7 +4,12 @@
 @section('meta_description', ($page?->meta_description ?: ($siteSettings['meta_description'] ?? '')))
 
 @php
-    $htmlContent = \Illuminate\Support\Str::markdown((string) ($page?->content ?? ''));
+    $rawContent = (string) ($page?->content ?? '');
+    $contentParts = preg_split('/(?=^##\s+Our approach\b)/mi', $rawContent, 2);
+    $introMarkdown = trim($contentParts[0] ?? $rawContent);
+    $approachMarkdown = trim($contentParts[1] ?? '');
+    $introHtml = $introMarkdown !== '' ? \Illuminate\Support\Str::markdown($introMarkdown) : '';
+    $approachHtml = $approachMarkdown !== '' ? \Illuminate\Support\Str::markdown($approachMarkdown) : '';
     $valuesBlock = collect($page?->content_blocks ?? [])->firstWhere('type', 'values');
     $teamBlock = collect($page?->content_blocks ?? [])->firstWhere('type', 'team');
     $voicesBlock = collect($page?->content_blocks ?? [])->firstWhere('type', 'testimonials');
@@ -30,38 +35,34 @@
         </div>
     </section>
 
-    <section class="section-y pt-0">
-        <div class="container-veenso grid gap-10 lg:grid-cols-[1fr_320px]">
-            <div class="reveal prose-veenso max-w-none">
-                {!! $htmlContent !!}
+    @if ($introHtml !== '' || $valuesBlock)
+        <section class="section-y pt-0">
+            <div class="container-veenso grid gap-10 lg:grid-cols-[1fr_320px]">
+                @if ($introHtml !== '')
+                    <div class="reveal prose-veenso max-w-none">
+                        {!! $introHtml !!}
+                    </div>
+                @endif
+
+                @if ($valuesBlock)
+                    <div class="reveal card-veenso flex flex-col gap-5 p-8 {{ $introHtml === '' ? 'lg:col-span-2' : '' }}" data-reveal-delay="100">
+                        <span class="eyebrow">Our Values</span>
+                        <ul class="flex flex-col gap-4">
+                            @foreach ($valuesBlock['items'] as $value)
+                                <li class="flex items-start gap-3 text-sm leading-relaxed text-veenso-text/90">
+                                    <x-icon name="check" class="mt-0.5 h-4 w-4 flex-shrink-0 text-veenso-accent-light" />
+                                    {{ $value }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
-
-            @if ($valuesBlock)
-                <div class="reveal card-veenso flex flex-col gap-5 p-8" data-reveal-delay="100">
-                    <span class="eyebrow">Our Values</span>
-                    <ul class="flex flex-col gap-4">
-                        @foreach ($valuesBlock['items'] as $value)
-                            <li class="flex items-start gap-3 text-sm leading-relaxed text-veenso-text/90">
-                                <x-icon name="check" class="mt-0.5 h-4 w-4 flex-shrink-0 text-veenso-accent-light" />
-                                {{ $value }}
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-    </section>
-
-    <section class="section-y bg-veenso-charcoal/40">
-        <div class="container-veenso grid grid-cols-2 gap-10 lg:grid-cols-4">
-            @foreach ($stats as $index => $stat)
-                <x-stat :value="$stat['value']" :label="$stat['label']" data-reveal-delay="{{ $index * 100 }}" />
-            @endforeach
-        </div>
-    </section>
+        </section>
+    @endif
 
     @if ($teamMembers->isNotEmpty())
-        <section class="section-y">
+        <section class="section-y pt-0">
             <div class="container-veenso section-stack">
                 <x-section-heading
                     :eyebrow="$teamBlock['eyebrow'] ?? 'Our Team'"
@@ -82,6 +83,24 @@
             </div>
         </section>
     @endif
+
+    @if ($approachHtml !== '')
+        <section class="section-y pt-0">
+            <div class="container-veenso">
+                <div class="reveal prose-veenso max-w-none">
+                    {!! $approachHtml !!}
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <section class="section-y bg-veenso-charcoal/40">
+        <div class="container-veenso grid grid-cols-2 gap-10 lg:grid-cols-4">
+            @foreach ($stats as $index => $stat)
+                <x-stat :value="$stat['value']" :label="$stat['label']" data-reveal-delay="{{ $index * 100 }}" />
+            @endforeach
+        </div>
+    </section>
 
     @if ($testimonials->isNotEmpty())
         <section class="section-y bg-veenso-charcoal/40">

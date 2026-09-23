@@ -43,6 +43,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
         Route::put('settings', [SiteSettingController::class, 'update'])->name('settings.update');
+        Route::post('settings/save', [SiteSettingController::class, 'update'])->name('settings.save');
 
         Route::get('contact-messages', [ContactMessageController::class, 'index'])->name('contact-messages.index');
         Route::get('contact-messages/{contactMessage}', [ContactMessageController::class, 'show'])->name('contact-messages.show');

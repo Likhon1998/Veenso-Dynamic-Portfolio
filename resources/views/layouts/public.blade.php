@@ -9,14 +9,14 @@
     <link rel="canonical" href="{{ url()->current() }}">
 
     @php
-        $brandLogoUrl = ! empty($siteSettings['brand_logo']) ? media_url($siteSettings['brand_logo']) : null;
         $favVersion = @filemtime(public_path('favicon-48x48.png')) ?: time();
         $favicon48 = asset('favicon-48x48.png').'?v='.$favVersion;
         $favicon192 = asset('favicon-192x192.png').'?v='.$favVersion;
         $favicon512 = asset('favicon-512x512.png').'?v='.$favVersion;
         $appleTouch = asset('apple-touch-icon.png').'?v='.$favVersion;
         $faviconIco = asset('favicon.ico').'?v='.$favVersion;
-        $ogImage = $brandLogoUrl ?: $favicon512;
+        $ogImage = $favicon512;
+        $schemaLogo = $favicon512;
     @endphp
 
     <meta property="og:type" content="website">
@@ -25,7 +25,7 @@
     <meta property="og:description" content="@yield('meta_description', $siteSettings['tagline'])">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ $ogImage }}">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:image" content="{{ $ogImage }}">
 
     @yield('meta')
@@ -40,6 +40,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ $appleTouch }}">
     <link rel="shortcut icon" href="{{ $faviconIco }}">
     <link rel="icon" href="{{ $faviconIco }}" sizes="any">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}?v={{ $favVersion }}">
+    <meta name="theme-color" content="#07070b">
 
     <script type="application/ld+json">
         {!! json_encode([
@@ -47,8 +49,13 @@
             '@type' => 'Organization',
             'name' => $siteSettings['site_name'] ?? 'Veenso',
             'url' => url('/'),
-            'logo' => $brandLogoUrl ?: $favicon512,
-            'image' => $brandLogoUrl ?: $favicon512,
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => $schemaLogo,
+                'width' => 512,
+                'height' => 512,
+            ],
+            'image' => $schemaLogo,
             'sameAs' => array_values(array_filter([
                 $siteSettings['social_linkedin'] ?? null,
                 $siteSettings['social_facebook'] ?? null,
@@ -69,7 +76,7 @@
         <div class="container-veenso flex h-16 items-center justify-between">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
                 @if (!empty($siteSettings['brand_logo']))
-                    <img src="{{ media_url($siteSettings['brand_logo']) }}" alt="{{ $siteSettings['site_name'] }}" class="h-8 w-auto max-w-[9.5rem] object-contain sm:h-9">
+                    <x-brand-logo :src="$siteSettings['brand_logo']" :alt="$siteSettings['site_name']" />
                 @else
                     <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-veenso-accent to-veenso-accent-dark text-sm font-bold text-white shadow-glow-sm">{{ strtoupper(substr($siteSettings['site_name'] ?? 'V', 0, 1)) }}</span>
                     <span class="font-display text-lg font-bold tracking-tight text-veenso-text">{{ $siteSettings['site_name'] }}</span>
@@ -153,7 +160,7 @@
                 <div class="site-footer-brand">
                     <a href="{{ route('home') }}" class="inline-flex items-center">
                         @if (!empty($siteSettings['brand_logo']))
-                            <img src="{{ media_url($siteSettings['brand_logo']) }}" alt="{{ $siteSettings['site_name'] }}" class="h-8 w-auto max-w-[9.5rem] object-contain">
+                            <x-brand-logo :src="$siteSettings['brand_logo']" :alt="$siteSettings['site_name']" class="h-8 w-auto max-w-[9.5rem] object-contain" />
                         @else
                             <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-veenso-accent to-veenso-accent-dark text-sm font-bold text-white">{{ strtoupper(substr($siteSettings['site_name'] ?? 'V', 0, 1)) }}</span>
                             <span class="ml-2 font-display text-lg font-bold text-veenso-text">{{ $siteSettings['site_name'] }}</span>

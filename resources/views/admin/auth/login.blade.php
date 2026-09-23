@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login — Veenso</title>
+    @php $loginFavVersion = @filemtime(public_path('favicon-48x48.png')) ?: time(); @endphp
+    <link rel="icon" href="{{ asset('favicon-48x48.png') }}?v={{ $loginFavVersion }}" type="image/png" sizes="48x48">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v={{ $loginFavVersion }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,6 +32,23 @@
             box-shadow: 0 30px 80px rgba(0,0,0,0.45);
         }
         .brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .brand-logo-plate {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.45rem 0.65rem;
+            border-radius: 12px;
+            background: #07070b;
+            border: 1px solid rgba(255,255,255,0.1);
+            line-height: 0;
+        }
+        .brand-logo-plate img {
+            display: block;
+            height: 28px;
+            width: auto;
+            max-width: 148px;
+            object-fit: contain;
+        }
         .brand-mark {
             width: 42px; height: 42px; border-radius: 12px;
             display: grid; place-items: center;
@@ -70,11 +90,18 @@
 <body>
     <div class="login-card">
         <div class="brand">
-            <div class="brand-mark">V</div>
-            <div>
-                <strong>VEENSO</strong>
-                <small>GROWTH PARTNER</small>
-            </div>
+            @php $loginLogo = \App\Models\SiteSetting::get('brand_logo'); @endphp
+            @if ($loginLogo)
+                <span class="brand-logo-plate">
+                    <img src="{{ media_url($loginLogo) }}" alt="{{ \App\Models\SiteSetting::get('site_name', 'Veenso') }}">
+                </span>
+            @else
+                <div class="brand-mark">V</div>
+                <div>
+                    <strong>VEENSO</strong>
+                    <small>GROWTH PARTNER</small>
+                </div>
+            @endif
         </div>
         <h1>Welcome back</h1>
         <p class="sub">Sign in to your portfolio dashboard</p>

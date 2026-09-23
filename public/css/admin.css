@@ -60,11 +60,22 @@ button {
     gap: 0.75rem;
     color: #fff;
 }
+.brand-logo-plate {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.65rem;
+    border-radius: 12px;
+    background: #07070b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.35);
+    line-height: 0;
+}
 .brand-link img {
     display: block;
-    height: 28px;
+    height: 30px;
     width: auto;
-    max-width: 132px;
+    max-width: 148px;
     object-fit: contain;
     object-position: center;
 }
@@ -418,6 +429,26 @@ textarea.form-control.code { font-family: Consolas, monospace; font-size: 0.8rem
 .checkbox-row input { accent-color: var(--admin-accent); }
 .form-actions { display: flex; gap: 0.7rem; padding-top: 0.35rem; flex-wrap: wrap; }
 .image-preview img { max-width: 200px; max-height: 140px; border-radius: 10px; border: 1px solid var(--admin-border); object-fit: cover; }
+.image-preview--logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.65rem;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    background: #07070b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.image-preview--logo img {
+    max-width: 220px;
+    max-height: 64px;
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    object-fit: contain;
+    background: transparent;
+}
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-top: 0.75rem; }
 .gallery-item { border: 1px solid var(--admin-border); border-radius: 10px; padding: 0.75rem; background: #0c0c13; }
 .gallery-item img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 0.5rem; }

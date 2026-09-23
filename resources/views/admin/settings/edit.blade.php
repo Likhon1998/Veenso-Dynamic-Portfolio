@@ -5,8 +5,8 @@
 
 @section('content')
 <div class="card">
-    <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
-        @csrf @method('PUT')
+    <form action="{{ route('admin.settings.save') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
         <div class="settings-group">
             <h3 class="settings-group-title">Brand & Hero Media</h3>
@@ -16,9 +16,11 @@
                     <input type="file" id="brand_logo" name="brand_logo" class="form-control" accept="image/*">
                     @php $logo = $settings->flatten()->firstWhere('key', 'brand_logo'); @endphp
                     @if ($logo?->value)
-                        <div class="image-preview"><img src="{{ media_url($logo->value) }}" alt="Brand logo"></div>
+                        <div class="image-preview image-preview--logo">
+                            <img src="{{ media_url($logo->value) }}" alt="Brand logo">
+                        </div>
                     @endif
-                    <span class="hint">Used in the public header and footer.</span>
+                    <span class="hint">Used in the public header, footer, and Google favicon (square V-mark).</span>
                 </div>
                 <div class="form-group">
                     <label for="hero_image">Homepage hero portrait</label>
